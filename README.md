@@ -1,8 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## COVA Kinetic - Next.js Build
 
-## Getting Started
+Production-ready modular landing platform for COVA hardware.
 
-First, run the development server:
+### Implemented
+
+- App Router pages: `/`, `/modules`, `/hub`, `/specs`, `/waitlist`, `/privacy`, `/terms`, `/support`
+- Reusable waitlist flow with API endpoint: `POST /api/waitlist`
+- CTA wiring and client-side analytics event hooks
+- SEO foundation: metadata templates, Open Graph, robots, sitemap
+- Shared shell layout with reusable top navigation and footer
+
+### Getting Started
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +24,35 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Waitlist Integration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The waitlist endpoint supports optional webhook forwarding:
 
-## Learn More
+```bash
+WAITLIST_WEBHOOK_URL=https://your-webhook-url.example/collect
+```
 
-To learn more about Next.js, take a look at the following resources:
+If unset, waitlist submissions are still accepted and logged server-side.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Core Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app`: routes, metadata, API handlers
+- `src/components`: UI composition (`landing`, `common`, `forms`)
+- `src/content`: centralized content/config for navigation and presets
+- `src/lib`: analytics, validation, and server rate limiter
 
-## Deploy on Vercel
+### Quality Commands
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Next Steps
+
+- Plug `POST /api/waitlist` into CRM or Supabase
+- Add authentication and profile saving in `/hub`
+- Add locale route groups for full EN/RO content
+
