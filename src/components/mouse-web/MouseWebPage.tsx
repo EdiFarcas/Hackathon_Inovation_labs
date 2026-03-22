@@ -42,7 +42,8 @@ const COMMANDS = {
   shell: 0x04,
 } as const;
 
-const POLLING_OPTIONS = [125, 500, 1000, 4000] as const;
+const POLLING_OPTIONS = [125, 500, 1000, 4000, 8000] as const;
+const LOD_OPTIONS = ["low", "medium", "high"] as const;
 const SHELL_OPTIONS = [
   { value: "standard", label: "Standard" },
   { value: "honeycomb", label: "Honeycomb Lightweight" },
@@ -62,7 +63,7 @@ export function MouseWebPage() {
   const [statusText, setStatusText] = useState("Not connected");
   const [dpi, setDpi] = useState(1600);
   const [pollingRate, setPollingRate] = useState<(typeof POLLING_OPTIONS)[number]>(1000);
-  const [lod, setLod] = useState<1 | 2>(1);
+  const [lod, setLod] = useState<(typeof LOD_OPTIONS)[number]>("low");
   const [shell, setShell] = useState<(typeof SHELL_OPTIONS)[number]["value"]>("standard");
 
   const sensorModel = "PAW3395";
@@ -138,14 +139,14 @@ export function MouseWebPage() {
   }
 
   function handlePollingRateChange(nextPollingRate: (typeof POLLING_OPTIONS)[number]) {
-    if (nextPollingRate === 4000 && !canUse4k) {
+    if (nextPollingRate >= 4000 && !canUse4k) {
       return;
     }
 
     setPollingRate(nextPollingRate);
   }
 
-  function handleLodChange(nextLod: 1 | 2) {
+  function handleLodChange(nextLod: (typeof LOD_OPTIONS)[number]) {
     setLod(nextLod);
   }
 
@@ -162,11 +163,22 @@ export function MouseWebPage() {
     await sendToMouse(COMMANDS.dpi, [lsb, msb]);
 
     // Trimite Polling Rate
-    const pollingEnum: Record<number, number> = { 125: 0x01, 500: 0x02, 1000: 0x03, 4000: 0x04 };
+    const pollingEnum: Record<number, number> = {
+      125: 0x01,
+      500: 0x02,
+      1000: 0x03,
+      4000: 0x04,
+      8000: 0x05,
+    };
     await sendToMouse(COMMANDS.polling, [pollingEnum[pollingRate]]);
 
     // Trimite LOD
-    await sendToMouse(COMMANDS.lod, [lod === 1 ? 0x01 : 0x02]);
+    const lodEnum: Record<(typeof LOD_OPTIONS)[number], number> = {
+      low: 0x01,
+      medium: 0x02,
+      high: 0x03,
+    };
+    await sendToMouse(COMMANDS.lod, [lodEnum[lod]]);
 
     // Trimite Shell
     const shellEnum: Record<string, number> = { standard: 0x01, honeycomb: 0x02, ergo: 0x03 };
@@ -181,7 +193,7 @@ export function MouseWebPage() {
       playerName: "s1mple CS2",
       dpi: 400,
       pollingRate: 4000 as const,
-      lod: 1 as const,
+      lod: "low" as const,
       shell: "ergo" as const,
     };
 
@@ -322,7 +334,7 @@ export function MouseWebPage() {
             <h3 className="mb-4 text-[10px] tracking-[0.16em] text-[#A0A0A0] uppercase">Polling Rate</h3>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {POLLING_OPTIONS.map((option) => {
-                const isDisabled = option === 4000 && !canUse4k;
+                const isDisabled = option >= 4000 && !canUse4k;
                 const isActive = pollingRate === option;
 
                 return (
@@ -345,28 +357,28 @@ export function MouseWebPage() {
               })}
             </div>
             <p className="mt-3 text-xs text-[#A0A0A0]">
-              4000Hz is automatically enabled only when a compatible sensor is detected.
+              4000Hz and 8000Hz are automatically enabled only when a compatible sensor is detected.
             </p>
           </section>
 
           <section className="mt-6 border border-zinc-800 bg-black p-5 md:p-6">
             <h3 className="mb-4 text-[10px] tracking-[0.16em] text-[#A0A0A0] uppercase">Lift-off Distance (LOD)</h3>
             <div className="flex gap-3">
-              {[1, 2].map((option) => {
+              {LOD_OPTIONS.map((option) => {
                 const isActive = lod === option;
 
                 return (
                   <button
                     key={option}
                     type="button"
-                    onClick={() => handleLodChange(option as 1 | 2)}
+                    onClick={() => handleLodChange(option)}
                     className={`border px-5 py-3 text-sm transition ${
                       isActive
                         ? "border-[#5CC596] bg-[#5CC596]/20 text-[#5CC596]"
                         : "border-zinc-700 text-white hover:border-[#5CC596]"
                     }`}
                   >
-                    {option}mm
+                    {option.charAt(0).toUpperCase() + option.slice(1)}
                   </button>
                 );
               })}
