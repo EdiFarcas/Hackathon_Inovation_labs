@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { Space_Mono } from "next/font/google";
 import { useSearchParams } from "next/navigation";
 import { baseKit, storeModules } from "@/content/site";
@@ -10,7 +10,7 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-export function MarketplacePage() {
+function MarketplaceContent() {
   const searchParams = useSearchParams();
   const presetName = searchParams.get("preset");
   const modulesParam = searchParams.get("modules");
@@ -169,5 +169,13 @@ export function MarketplacePage() {
         </aside>
       </div>
     </section>
+  );
+}
+
+export function MarketplacePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black text-white p-8">Loading marketplace...</div>}>
+      <MarketplaceContent />
+    </Suspense>
   );
 }
