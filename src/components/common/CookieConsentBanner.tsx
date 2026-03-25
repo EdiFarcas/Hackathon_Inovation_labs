@@ -52,7 +52,7 @@ export function CookieConsentBanner() {
 
   return (
     <aside className="bg-surface-container-high/95 border-outline fixed right-4 bottom-4 z-50 max-w-sm border p-4 backdrop-blur-xl">
-      <h2 className="text-sm font-semibold tracking-wide text-white uppercase">
+      <h2 className="text-sm font-semibold tracking-wide text-on-surface uppercase">
         Cookie Preferences
       </h2>
       <p className="text-on-surface-variant mt-2 text-sm leading-relaxed">
@@ -63,7 +63,7 @@ export function CookieConsentBanner() {
         <button
           type="button"
           onClick={reject}
-          className="border-outline text-on-surface px-3 py-2 text-xs tracking-widest uppercase transition hover:bg-black/40"
+          className="border-outline text-on-surface px-3 py-2 text-xs tracking-widest uppercase transition hover:bg-surface/40"
         >
           Reject
         </button>

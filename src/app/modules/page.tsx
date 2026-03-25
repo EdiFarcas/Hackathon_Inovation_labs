@@ -23,7 +23,7 @@ export default function ModulesPage() {
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-primary text-[10px] tracking-[0.2em] uppercase">Starter Kit</p>
-                <h2 className="mt-2 text-3xl font-bold tracking-tighter text-white">{baseKit.name}</h2>
+                <h2 className="mt-2 text-3xl font-bold tracking-tighter text-on-surface">{baseKit.name}</h2>
                 <p className="text-on-surface-variant mt-3 max-w-2xl text-sm leading-relaxed">
                   {baseKit.description}
                 </p>
@@ -33,7 +33,7 @@ export default function ModulesPage() {
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {baseKit.includes.map((item) => (
-                <div key={item} className="bg-surface-container border-outline-variant/20 border px-4 py-3 text-sm text-white">
+                <div key={item} className="bg-surface-container border-outline-variant/20 border px-4 py-3 text-sm text-on-surface">
                   {item}
                 </div>
               ))}
@@ -57,16 +57,16 @@ export default function ModulesPage() {
               {storeModules.map((module) => (
                 <article key={module.id} className="bg-surface-container-low border-outline-variant/30 border p-6">
                   <p className="text-primary text-[10px] tracking-[0.2em] uppercase">{module.category} Module</p>
-                  <h4 className="mt-2 text-xl font-bold tracking-tight text-white">{module.name}</h4>
+                  <h4 className="mt-2 text-xl font-bold tracking-tight text-on-surface">{module.name}</h4>
                   <p className="text-on-surface-variant mt-3 text-sm leading-relaxed">{module.description}</p>
 
-                  <ul className="mt-4 space-y-2 text-xs text-[#c2cdc5]">
+                  <ul className="mt-4 space-y-2 text-xs text-secondary">
                     {module.specs.map((spec) => (
                       <li key={spec}>• {spec}</li>
                     ))}
                   </ul>
 
-                  <div className="mt-5 border-outline-variant/20 border-t pt-4 text-lg font-bold text-[#5CC596]">
+                  <div className="mt-5 border-outline-variant/20 border-t pt-4 text-lg font-bold text-primary">
                     ${module.price}
                   </div>
                 </article>

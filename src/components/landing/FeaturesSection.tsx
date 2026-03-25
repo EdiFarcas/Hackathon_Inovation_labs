@@ -36,7 +36,7 @@ export function FeaturesSection() {
           </div>
 
           <div className="bg-surface-container-high flex flex-col items-start gap-12 p-6 sm:p-8 md:col-span-4">
-            <div className="border-outline-variant/20 group relative flex aspect-square w-full items-center justify-center overflow-hidden border bg-black p-8">
+            <div className="border-outline-variant/20 group relative flex aspect-square w-full items-center justify-center overflow-hidden border bg-surface p-8">
               <div className="bg-primary/5 absolute inset-0 translate-y-full transition-transform duration-500 group-hover:translate-y-0" />
               <span className="text-primary text-7xl">◎</span>
             </div>
@@ -77,7 +77,7 @@ export function FeaturesSection() {
                     setup.featured ? "border-primary" : "border-outline-variant"
                   } border-l-2`}
                 >
-                  <div className="mb-2 text-xl leading-tight font-bold text-white uppercase sm:text-xs">
+                  <div className="mb-2 text-xl leading-tight font-bold text-on-surface uppercase sm:text-xs">
                     {setup.title}
                   </div>
                   <div className="text-outline text-base leading-relaxed sm:font-mono sm:text-[10px]">

@@ -22,7 +22,7 @@ export function HeroSection() {
             </span>
           </div>
 
-          <h1 className="text-6xl leading-[0.9] font-bold tracking-tighter text-white md:text-8xl">
+          <h1 className="text-6xl leading-[0.9] font-bold tracking-tighter text-on-surface md:text-8xl">
             The last mouse <br />you&apos;ll <span className="text-primary text-glow">ever</span> buy.
           </h1>
 
@@ -41,7 +41,7 @@ export function HeroSection() {
           <div className="flex gap-12 pt-8">
             {stats.map((stat) => (
               <div key={stat.label}>
-                <div className="text-3xl font-bold tracking-tighter text-white">
+                <div className="text-3xl font-bold tracking-tighter text-on-surface">
                   {stat.value}
                 </div>
                 <div className="text-on-surface-variant text-[10px] tracking-widest uppercase">

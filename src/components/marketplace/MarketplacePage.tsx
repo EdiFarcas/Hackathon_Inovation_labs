@@ -51,43 +51,43 @@ function MarketplaceContent() {
   }
 
   return (
-    <section className={`${spaceMono.className} min-h-screen bg-black px-4 py-28 text-white sm:px-8`}>
+    <section className={`${spaceMono.className} min-h-screen bg-surface px-4 py-28 text-on-surface sm:px-8`}>
       <div className="mx-auto grid w-full max-w-7xl gap-10 xl:grid-cols-[1fr_320px]">
         <div className="space-y-12">
           <header className="space-y-4">
-            <p className="text-xs tracking-[0.2em] text-[#5CC596] uppercase">Store / Marketplace</p>
-            <h1 className="text-3xl leading-tight font-bold tracking-tight text-white md:text-5xl">
+            <p className="text-xs tracking-[0.2em] text-primary uppercase">Store / Marketplace</p>
+            <h1 className="text-3xl leading-tight font-bold tracking-tight text-on-surface md:text-5xl">
               COVA Marketplace - Build Your Perfect Mouse
             </h1>
-            <p className="max-w-2xl text-sm leading-relaxed text-[#A0A0A0] md:text-base">
+            <p className="max-w-2xl text-sm leading-relaxed text-secondary md:text-base">
               Start with the magnetic core, then stack upgrades that fit your
               playstyle. Build once. Evolve forever.
             </p>
             {presetName && (
-              <p className="inline-block border border-[#2a3f34] bg-[#0c1712] px-3 py-2 text-xs tracking-[0.15em] text-[#5CC596] uppercase">
+              <p className="inline-block border border-outline bg-surface-container-high px-3 py-2 text-xs tracking-[0.15em] text-primary uppercase">
                 Preset Loaded: {presetName}
               </p>
             )}
           </header>
 
           <section aria-labelledby="starter-kit-title" className="space-y-4">
-            <h2 id="starter-kit-title" className="text-xl font-bold tracking-[0.1em] text-[#5CC596] uppercase">
+            <h2 id="starter-kit-title" className="text-xl font-bold tracking-[0.1em] text-primary uppercase">
               The Starter Kit
             </h2>
 
-            <article className="rounded-none border border-[#1f1f1f] bg-[#070707] p-6 shadow-[0_0_0_1px_rgba(92,197,150,0.25)] md:p-8">
+            <article className="rounded-none border border-outline-variant bg-surface-container p-6 shadow-[0_0_0_1px_var(--color-primary)] md:p-8">
               <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div className="space-y-3">
-                  <h3 className="text-2xl font-bold tracking-tight text-white md:text-3xl">{baseKit.name}</h3>
-                  <p className="text-sm text-[#A0A0A0] md:text-base">
+                  <h3 className="text-2xl font-bold tracking-tight text-on-surface md:text-3xl">{baseKit.name}</h3>
+                  <p className="text-sm text-secondary md:text-base">
                     {baseKit.description}
                   </p>
-                  <p className="text-lg font-bold text-[#5CC596]">${baseKit.price}</p>
+                  <p className="text-lg font-bold text-primary">${baseKit.price}</p>
                 </div>
 
                 <button
                   type="button"
-                  className="w-full border border-[#5CC596] bg-[#5CC596] px-5 py-3 text-sm font-bold tracking-[0.18em] text-black uppercase transition hover:brightness-110 md:w-auto"
+                  className="w-full border border-primary bg-primary px-5 py-3 text-sm font-bold tracking-[0.18em] text-on-primary uppercase transition hover:brightness-110 md:w-auto"
                 >
                   Add to Cart
                 </button>
@@ -96,7 +96,7 @@ function MarketplaceContent() {
           </section>
 
           <section aria-labelledby="modules-title" className="space-y-4">
-            <h2 id="modules-title" className="text-xl font-bold tracking-[0.1em] text-[#5CC596] uppercase">
+            <h2 id="modules-title" className="text-xl font-bold tracking-[0.1em] text-primary uppercase">
               Swappable Modules (The Ecosystem)
             </h2>
 
@@ -107,12 +107,12 @@ function MarketplaceContent() {
                 return (
                   <article
                     key={module.id}
-                    className="flex h-full flex-col justify-between border border-[#1f1f1f] bg-[#060606] p-5"
+                    className="flex h-full flex-col justify-between border border-outline-variant bg-surface-container-lowest p-5"
                   >
                     <div className="space-y-3">
-                      <h3 className="text-lg font-bold leading-snug text-white">{module.name}</h3>
-                      <p className="text-sm text-[#A0A0A0]">{module.description}</p>
-                      <p className="text-base font-bold text-[#5CC596]">${module.price}</p>
+                      <h3 className="text-lg font-bold leading-snug text-on-surface">{module.name}</h3>
+                      <p className="text-sm text-secondary">{module.description}</p>
+                      <p className="text-base font-bold text-primary">${module.price}</p>
                     </div>
 
                     <button
@@ -120,8 +120,8 @@ function MarketplaceContent() {
                       onClick={() => toggleModule(module.id)}
                       className={`mt-6 border px-4 py-2 text-xs font-bold tracking-[0.16em] uppercase transition ${
                         isSelected
-                          ? "border-[#5CC596] bg-[#0e2018] text-[#5CC596]"
-                          : "border-[#2a2a2a] bg-transparent text-white hover:border-[#5CC596]"
+                          ? "border-primary bg-primary-container text-primary"
+                          : "border-outline-variant bg-transparent text-on-surface hover:border-primary"
                       }`}
                     >
                       {isSelected ? "Added" : "Add Module"}
@@ -133,36 +133,36 @@ function MarketplaceContent() {
           </section>
         </div>
 
-        <aside className="h-fit border border-[#1f1f1f] bg-[#050505] p-6 xl:sticky xl:top-28" aria-label="Cart summary">
-          <p className="text-xs tracking-[0.2em] text-[#5CC596] uppercase">Cart Summary</p>
+        <aside className="h-fit border border-outline-variant bg-surface-container-lowest p-6 xl:sticky xl:top-28" aria-label="Cart summary">
+          <p className="text-xs tracking-[0.2em] text-primary uppercase">Cart Summary</p>
           <div className="mt-5 space-y-3 text-sm">
-            <div className="flex items-center justify-between text-white">
+            <div className="flex items-center justify-between text-on-surface">
               <span>COVA Base Kit</span>
               <span>${baseKit.price}</span>
             </div>
 
             {selectedModuleItems.length === 0 && (
-              <p className="text-xs text-[#A0A0A0]">No modules selected yet.</p>
+              <p className="text-xs text-secondary">No modules selected yet.</p>
             )}
 
             {selectedModuleItems.map((module) => (
-              <div key={module.id} className="flex items-center justify-between text-[#A0A0A0]">
+              <div key={module.id} className="flex items-center justify-between text-secondary">
                 <span>{module.name}</span>
                 <span>${module.price}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-6 border-t border-[#1f1f1f] pt-4">
-            <div className="flex items-center justify-between text-lg font-bold text-white">
+          <div className="mt-6 border-t border-outline-variant pt-4">
+            <div className="flex items-center justify-between text-lg font-bold text-on-surface">
               <span>Total</span>
-              <span className="text-[#5CC596]">${totalPrice}</span>
+              <span className="text-primary">${totalPrice}</span>
             </div>
           </div>
 
           <button
             type="button"
-            className="mt-6 w-full border border-[#5CC596] bg-[#5CC596] px-4 py-3 text-xs font-bold tracking-[0.2em] text-black uppercase transition hover:brightness-110"
+            className="mt-6 w-full border border-primary bg-primary px-4 py-3 text-xs font-bold tracking-[0.2em] text-on-primary uppercase transition hover:brightness-110"
           >
             Checkout
           </button>
@@ -174,7 +174,7 @@ function MarketplaceContent() {
 
 export function MarketplacePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-black text-white p-8">Loading marketplace...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-surface text-on-surface p-8">Loading marketplace...</div>}>
       <MarketplaceContent />
     </Suspense>
   );

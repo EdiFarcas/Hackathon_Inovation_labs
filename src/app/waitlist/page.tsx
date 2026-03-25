@@ -22,7 +22,7 @@ export default function WaitlistPage() {
       <section className="py-20">
         <div className="container mx-auto max-w-2xl px-8">
           <div className="bg-surface-container border-outline-variant/30 border p-8">
-            <h2 className="text-2xl font-bold tracking-tighter text-white">Join The Priority Queue</h2>
+            <h2 className="text-2xl font-bold tracking-tighter text-on-surface">Join The Priority Queue</h2>
             <p className="text-on-surface-variant mt-3 text-sm leading-relaxed">
               We only ship in controlled production waves. Leave your email and
               we will notify you when your batch opens.

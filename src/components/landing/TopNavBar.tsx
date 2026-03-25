@@ -18,33 +18,33 @@ export function TopNavBar() {
   }
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-black/60 px-4 py-3 backdrop-blur-xl sm:px-6 md:px-8 md:py-4">
+    <nav className="fixed top-0 z-50 w-full bg-white/80 px-4 py-3 backdrop-blur-xl sm:px-6 md:px-8 md:py-4 border-b border-outline-variant/20">
       <div className="flex items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-3 text-2xl font-bold tracking-tighter text-[#5CC596]"
+          className="flex items-center gap-3 text-2xl font-bold tracking-tighter text-primary"
           onClick={() => {
             trackEvent("nav_brand_click");
             closeMobileMenu();
           }}
         >
           <Image
-            src="/square%201.png"
+            src="/logo_full.png"
             alt="COVA logo"
-            width={34}
+            width={90}
             height={34}
             className="rounded-sm"
             priority
           />
         </Link>
 
-        <div className="hidden items-center gap-12 text-sm uppercase tracking-tight text-[#bdcac0] md:flex">
+        <div className="hidden items-center gap-12 text-sm uppercase tracking-tight text-on-surface-variant md:flex">
           {siteCopy.nav.map((link) => (
             <Link
               key={link.label}
-              className={`transition-all duration-100 hover:text-[#79E1B0] ${
+              className={`transition-all duration-100 hover:text-primary/70 ${
                 pathname === link.href
-                  ? "border-b-2 border-[#5CC596] pb-1 text-[#5CC596]"
+                  ? "border-b-2 border-primary pb-1 text-primary"
                   : ""
               }`}
               href={link.href}
@@ -85,7 +85,7 @@ export function TopNavBar() {
                 key={link.label}
                 href={link.href}
                 className={`px-2 py-2 text-sm tracking-wide uppercase transition-colors ${
-                  pathname === link.href ? "text-primary" : "text-[#bdcac0]"
+                  pathname === link.href ? "text-primary bg-primary/5" : "text-on-surface-variant hover:text-primary"
                 }`}
                 onClick={() => {
                   trackEvent("nav_link_click", { label: link.label, viewport: "mobile" });

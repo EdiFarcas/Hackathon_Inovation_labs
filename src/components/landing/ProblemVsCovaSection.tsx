@@ -5,7 +5,7 @@ export function ProblemVsCovaSection() {
     <section className="bg-surface-container-lowest py-32">
       <div className="container mx-auto px-8">
         <div className="grid gap-1 px-8 md:grid-cols-2">
-          <div className="group relative space-y-8 overflow-hidden bg-black p-12">
+          <div className="group relative space-y-8 overflow-hidden bg-surface p-12">
             <div className="absolute top-0 right-0 p-4 opacity-10">
               <span className="text-9xl">⌫</span>
             </div>

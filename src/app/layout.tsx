@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   },
   description: "Modular performance hardware platform for competitive players.",
   icons: {
-    icon: "/square%201.png",
-    shortcut: "/square%201.png",
-    apple: "/square%201.png",
+    icon: "/square.png",
+    shortcut: "/square.png",
+    apple: "/square.png",
   },
   openGraph: {
     title: "COVA Kinetic",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "COVA Kinetic",
     images: [
       {
-        url: "/square%201.png",
+        url: "/square.png",
         width: 1200,
         height: 1200,
         alt: "COVA Kinetic logo",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "COVA Kinetic",
     description: "Future-proof mouse hardware with modular sensors, switches, and shells.",
-    images: ["/square%201.png"],
+    images: ["/square.png"],
   },
 };
 
@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} h-full antialiased dark`}>
+    <html lang="en" className={`${spaceGrotesk.variable} h-full antialiased`}>
       <body className="font-body min-h-full bg-background text-on-surface selection:bg-primary-container selection:text-on-primary">
         {children}
         <CookieConsentBanner />

@@ -16,7 +16,7 @@ export default function PrivacyPage() {
         description="How we process waitlist information and product analytics data."
       />
       <section className="py-20">
-        <div className="container mx-auto max-w-3xl space-y-6 px-8 text-sm leading-relaxed text-[#c7d2ca]">
+        <div className="container mx-auto max-w-3xl space-y-6 px-8 text-sm leading-relaxed text-secondary">
           <p>
             We collect your email address to manage launch communications and
             product release notifications.

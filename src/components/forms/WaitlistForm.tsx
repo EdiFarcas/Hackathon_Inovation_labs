@@ -86,8 +86,8 @@ export function WaitlistForm({
           required
           className={
             isInline
-              ? "placeholder:text-outline-variant w-full border-none bg-transparent px-0 py-4 text-sm tracking-widest text-white uppercase focus:ring-0"
-              : "bg-surface-container-low placeholder:text-outline-variant w-full border-none px-8 py-6 text-sm tracking-widest text-white uppercase focus:ring-2 focus:ring-primary"
+              ? "placeholder:text-outline-variant w-full border-none bg-transparent px-0 py-4 text-sm tracking-widest text-on-surface uppercase focus:ring-0"
+              : "bg-surface-container-low placeholder:text-outline-variant w-full border-none px-8 py-6 text-sm tracking-widest text-on-surface uppercase focus:ring-2 focus:ring-primary"
           }
         />
 
@@ -107,7 +107,7 @@ export function WaitlistForm({
           disabled={isLoading}
           className={
             isInline
-              ? "text-primary py-4 text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap transition-colors hover:text-white disabled:opacity-70"
+              ? "text-primary py-4 text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap transition-colors hover:text-on-surface disabled:opacity-70"
               : "bg-primary-container text-on-primary w-full px-12 py-6 text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap transition-colors hover:bg-primary-fixed disabled:opacity-70 sm:w-auto"
           }
         >
