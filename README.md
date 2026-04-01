@@ -1,6 +1,6 @@
-## COVA Kinetic - Next.js Build
+## KOVA Kinetic - Next.js Build
 
-Production-ready modular landing platform for COVA hardware.
+Production-ready modular landing platform for KOVA hardware.
 
 ### Implemented
 

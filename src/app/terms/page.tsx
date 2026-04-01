@@ -4,7 +4,7 @@ import { SiteShell } from "@/components/common/SiteShell";
 
 export const metadata: Metadata = {
   title: "Terms",
-  description: "Terms of use for COVA Kinetic website.",
+  description: "Terms of use for KOVA Kinetic website.",
 };
 
 export default function TermsPage() {

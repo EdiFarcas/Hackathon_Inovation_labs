@@ -54,7 +54,7 @@ export function FeaturesSection() {
               <span className="text-primary text-[10px] font-bold tracking-[0.3em] uppercase">
                 Network
               </span>
-              <h4 className="text-5xl font-bold tracking-tighter">The COVA Hub.</h4>
+              <h4 className="text-5xl font-bold tracking-tighter">The KOVA Hub.</h4>
               <p className="text-on-surface-variant text-lg font-light">
                 Where hardware meets software. Download precision profiles from
                 pro players or share your custom sensor-switch combinations.

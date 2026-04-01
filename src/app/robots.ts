@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://cova-kinetic.com/sitemap.xml",
+    sitemap: "https://kova-kinetic.com/sitemap.xml",
   };
 }

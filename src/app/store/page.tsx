@@ -4,7 +4,7 @@ import { MarketplacePage } from "@/components/marketplace/MarketplacePage";
 
 export const metadata: Metadata = {
   title: "Store",
-  description: "COVA Store - modular ecosystem for your gaming mouse.",
+  description: "KOVA Store - modular ecosystem for your gaming mouse.",
 };
 
 export default function StoreRoute() {

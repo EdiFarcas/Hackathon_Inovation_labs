@@ -2,8 +2,8 @@
 
 import { useSyncExternalStore } from "react";
 
-const CONSENT_KEY = "cova-cookie-consent";
-const CONSENT_EVENT = "cova-consent-change";
+const CONSENT_KEY = "kova-cookie-consent";
+const CONSENT_EVENT = "kova-consent-change";
 
 function subscribe(onStoreChange: () => void) {
   if (typeof window === "undefined") {

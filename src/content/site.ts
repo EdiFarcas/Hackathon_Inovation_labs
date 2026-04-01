@@ -52,11 +52,11 @@ type LocaleCopy = {
 
 const copyByLocale: Record<Locale, LocaleCopy> = {
   en: {
-    brandName: "COVA",
+    brandName: "KOVA",
     nav: [
       { label: "Store", href: "/store" },
       { label: "Modules", href: "/modules" },
-      { label: "COVA Hub", href: "/hub" },
+      { label: "KOVA Hub", href: "/hub" },
       { label: "Mouse Web", href: "/mouse-web" },
     ],
     footerLinks: [
@@ -65,7 +65,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
       { label: "Support", href: "/support" },
       { label: "Twitter", href: "https://x.com" },
     ],
-    legalCopy: "© 2026 COVA KINETIC. ALL RIGHTS RESERVED.",
+    legalCopy: "© 2026 KOVA KINETIC. ALL RIGHTS RESERVED.",
     waitlist: {
       title: "Secure your Modular Alpha Kit",
       subtitle:
@@ -73,11 +73,11 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
     },
   },
   ro: {
-    brandName: "COVA",
+    brandName: "KOVA",
     nav: [
       { label: "Store", href: "/store" },
       { label: "Module", href: "/modules" },
-      { label: "COVA Hub", href: "/hub" },
+      { label: "KOVA Hub", href: "/hub" },
       { label: "Mouse Web", href: "/mouse-web" },
     ],
     footerLinks: [
@@ -86,7 +86,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
       { label: "Suport", href: "/support" },
       { label: "Twitter", href: "https://x.com" },
     ],
-    legalCopy: "© 2026 COVA KINETIC. TOATE DREPTURILE REZERVATE.",
+    legalCopy: "© 2026 KOVA KINETIC. TOATE DREPTURILE REZERVATE.",
     waitlist: {
       title: "Asigură-ți Modular Alpha Kit",
       subtitle:
@@ -101,7 +101,7 @@ export const legacyPainPoints = [
   "Landfill Waste",
 ];
 
-export const covaAdvantages = [
+export const kovaAdvantages = [
   "Snap-on Optical Sensors",
   "Toolless Hot-Swaps",
   "Carbon Neutral Cycle",
@@ -123,7 +123,7 @@ export const setupPresets: SetupPreset[] = [
 ];
 
 export const baseKit: BaseKit = {
-  name: "COVA Base Kit",
+  name: "KOVA Base Kit",
   price: 80,
   description:
     "The core magnetic chassis + standard PCB. This is your foundation for every future module upgrade.",

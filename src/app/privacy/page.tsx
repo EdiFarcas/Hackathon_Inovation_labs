@@ -4,7 +4,7 @@ import { SiteShell } from "@/components/common/SiteShell";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "Privacy policy for COVA Kinetic.",
+  description: "Privacy policy for KOVA Kinetic.",
 };
 
 export default function PrivacyPage() {
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
             improve conversion and usability.
           </p>
           <p>
-            To request data deletion, email support@cova-kinetic.com from the
+            To request data deletion, email support@kova-kinetic.com from the
             address you used when joining the waitlist.
           </p>
         </div>

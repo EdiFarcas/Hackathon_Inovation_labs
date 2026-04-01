@@ -6,7 +6,7 @@ import { baseKit, storeModules } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Modules",
-  description: "Detailed breakdown of COVA Base Kit and modular upgrade ecosystem.",
+  description: "Detailed breakdown of KOVA Base Kit and modular upgrade ecosystem.",
 };
 
 export default function ModulesPage() {
@@ -15,7 +15,7 @@ export default function ModulesPage() {
       <PageIntro
         eyebrow="Catalog"
         title="Base Kit + Swappable Modules"
-        description="Understand exactly what ships in the COVA core kit and how each module extends your performance profile."
+        description="Understand exactly what ships in the KOVA core kit and how each module extends your performance profile."
       />
       <section className="py-20">
         <div className="container mx-auto space-y-14 px-8">

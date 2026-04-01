@@ -5,7 +5,7 @@ import { HubSetupCard } from "@/components/hub/HubSetupCard";
 import { hubSetups, storeModules } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "COVA Hub",
+  title: "KOVA Hub",
   description: "Browse and share community configuration presets.",
 };
 

@@ -57,7 +57,7 @@ function MarketplaceContent() {
           <header className="space-y-4">
             <p className="text-xs tracking-[0.2em] text-primary uppercase">Store / Marketplace</p>
             <h1 className="text-3xl leading-tight font-bold tracking-tight text-on-surface md:text-5xl">
-              COVA Marketplace - Build Your Perfect Mouse
+              KOVA Marketplace - Build Your Perfect Mouse
             </h1>
             <p className="max-w-2xl text-sm leading-relaxed text-secondary md:text-base">
               Start with the magnetic core, then stack upgrades that fit your
@@ -137,7 +137,7 @@ function MarketplaceContent() {
           <p className="text-xs tracking-[0.2em] text-primary uppercase">Cart Summary</p>
           <div className="mt-5 space-y-3 text-sm">
             <div className="flex items-center justify-between text-on-surface">
-              <span>COVA Base Kit</span>
+              <span>KOVA Base Kit</span>
               <span>${baseKit.price}</span>
             </div>
 

@@ -6,7 +6,7 @@ import { getSiteCopy } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Waitlist",
-  description: "Join the COVA Kinetic launch waitlist.",
+  description: "Join the KOVA Kinetic launch waitlist.",
 };
 
 export default function WaitlistPage() {

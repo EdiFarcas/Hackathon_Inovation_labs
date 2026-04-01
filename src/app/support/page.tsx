@@ -5,11 +5,11 @@ import { SiteShell } from "@/components/common/SiteShell";
 
 export const metadata: Metadata = {
   title: "Support",
-  description: "Support resources for COVA Kinetic launch users.",
+  description: "Support resources for KOVA Kinetic launch users.",
 };
 
 const supportItems = [
-  { title: "Email", value: "support@cova-kinetic.com" },
+  { title: "Email", value: "support@kova-kinetic.com" },
   { title: "Response window", value: "Monday - Friday, 09:00 - 18:00 EET" },
   { title: "Coverage", value: "Waitlist, module compatibility, launch timeline" },
 ];

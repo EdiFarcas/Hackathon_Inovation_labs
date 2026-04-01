@@ -29,8 +29,8 @@ export function TopNavBar() {
           }}
         >
           <Image
-            src="/logo_full.png"
-            alt="COVA logo"
+            src="/kova_logo_full.png"
+            alt="KOVA logo"
             width={90}
             height={34}
             className="rounded-sm"

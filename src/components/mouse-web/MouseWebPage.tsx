@@ -33,7 +33,7 @@ const spaceMono = Space_Mono({
 
 // Demo mode: UI remains fully interactive without physical hardware connected.
 const MOCK_MODE = true;
-const COVA_VENDOR_ID = 0x1234;
+const KOVA_VENDOR_ID = 0x1234;
 
 const COMMANDS = {
   dpi: 0x01,
@@ -110,7 +110,7 @@ export function MouseWebPage() {
 
     try {
       const devices = await navigator.hid.requestDevice({
-        filters: [{ vendorId: COVA_VENDOR_ID }],
+        filters: [{ vendorId: KOVA_VENDOR_ID }],
       });
 
       if (devices.length === 0) {
@@ -125,7 +125,7 @@ export function MouseWebPage() {
 
       setHidDevice(device);
       setConnected(true);
-      setStatusText(`Connected: ${device.productName ?? "COVA Mouse"}`);
+      setStatusText(`Connected: ${device.productName ?? "KOVA Mouse"}`);
     } catch (error) {
       console.error("[WebHID] Connection failed", error);
       setStatusText("Connection failed");
@@ -188,7 +188,7 @@ export function MouseWebPage() {
   }
 
   function handleImportSetup() {
-    // Simulează descărcarea unui profil din COVA Marketplace
+    // Simulează descărcarea unui profil din KOVA Marketplace
     const importedSetup = {
       playerName: "s1mple CS2",
       dpi: 400,

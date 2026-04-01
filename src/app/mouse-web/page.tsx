@@ -4,7 +4,7 @@ import { MouseWebPage } from "@/components/mouse-web/MouseWebPage";
 
 export const metadata: Metadata = {
   title: "Mouse Web",
-  description: "Browser companion app for COVA modular gaming mouse using WebHID.",
+  description: "Browser companion app for KOVA modular gaming mouse using WebHID.",
 };
 
 export default function MouseWebRoute() {

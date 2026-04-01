@@ -9,10 +9,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cova-kinetic.com"),
+  metadataBase: new URL("https://kova-kinetic.com"),
   title: {
-    default: "COVA Kinetic",
-    template: "%s | COVA Kinetic",
+    default: "KOVA Kinetic",
+    template: "%s | KOVA Kinetic",
   },
   description: "Modular performance hardware platform for competitive players.",
   icons: {
@@ -21,23 +21,23 @@ export const metadata: Metadata = {
     apple: "/square.png",
   },
   openGraph: {
-    title: "COVA Kinetic",
+    title: "KOVA Kinetic",
     description: "Future-proof mouse hardware with modular sensors, switches, and shells.",
     type: "website",
-    url: "https://cova-kinetic.com",
-    siteName: "COVA Kinetic",
+    url: "https://kova-kinetic.com",
+    siteName: "KOVA Kinetic",
     images: [
       {
         url: "/square.png",
         width: 1200,
         height: 1200,
-        alt: "COVA Kinetic logo",
+        alt: "KOVA Kinetic logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "COVA Kinetic",
+    title: "KOVA Kinetic",
     description: "Future-proof mouse hardware with modular sensors, switches, and shells.",
     images: ["/square.png"],
   },
