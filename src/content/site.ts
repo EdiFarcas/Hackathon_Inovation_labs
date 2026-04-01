@@ -122,44 +122,78 @@ export const setupPresets: SetupPreset[] = [
   { title: "Rainbow 6 Edge", details: "MODULE: 12-BUTTON", switchType: "SWITCH: SOFT-V" },
 ];
 
-export const baseKit: BaseKit = {
-  name: "KOVA Base Kit",
-  price: 80,
-  description:
-    "The core magnetic chassis + standard PCB. This is your foundation for every future module upgrade.",
-  includes: [
-    "Magnetic modular chassis",
-    "Standard PCB",
-    "Firmware-ready base controller",
-    "Toolless lock system",
-  ],
-};
+export const baseKits = [
+  {
+    id: "kit-kova",
+    name: "KOVA Kit",
+    price: 80,
+    description: "The essential modular chassis with a reliable sensor and microcontroller. A solid foundation you can upgrade anytime.",
+    includes: ["Magnetic modular chassis", "Standard sensor & MCU", "Toolless lock system"],
+  },
+  {
+    id: "kit-kova-pro",
+    name: "KOVA Pro Kit",
+    price: 130,
+    description: "Built around a higher-performance sensor and a faster microcontroller for lower latency and higher polling rates.",
+    includes: ["Magnetic modular chassis", "High-performance sensor & MCU", "Toolless lock system"],
+  }
+];
 
-export const storeModules: StoreModule[] = [
+export const buttonModules: StoreModule[] = [
   {
-    id: "paw3395",
-    name: "PixArt PAW3395 Sensor Module",
-    price: 25,
-    description: "Upgrade to 4000Hz polling rate.",
-    category: "Sensor",
-    specs: ["PAW3395 optical core", "Up to 4000Hz polling", "Low-latency tracking"],
-  },
-  {
-    id: "omron-optical",
-    name: "Omron Optical Switch Pack",
+    id: "btn-omron",
+    name: "Omron Optical",
     price: 15,
-    description: "Zero double-click guarantee.",
+    description: "Zero double-click guarantee with light actuation.",
     category: "Switch",
-    specs: ["Optical actuation", "Debounce-free clicks", "Esports durability"],
+    specs: ["Optical actuation", "Light force"],
   },
   {
-    id: "honeycomb-shell",
-    name: "Honeycomb SLA Grip Shell",
+    id: "btn-huano",
+    name: "Huano Blue Shell Pink Dot",
+    price: 18,
+    description: "Crisp and tactile feedback for precise tapping.",
+    category: "Switch",
+    specs: ["Mechanical", "Heavy tactile force"],
+  }
+];
+
+export const shellModules: StoreModule[] = [
+  {
+    id: "shell-solid",
+    name: "Solid Matte Shell",
+    price: 20,
+    description: "Classic smooth texture with maximum grip coverage.",
+    category: "Shell",
+    specs: ["Solid ABS", "Matte coating"],
+  },
+  {
+    id: "shell-honeycomb",
+    name: "Honeycomb SLA Grip",
     price: 30,
     description: "Ultra-lightweight community design.",
     category: "Shell",
-    specs: ["SLA precision print", "Ultra-light geometry", "High-grip texture"],
+    specs: ["SLA print", "Breathable grip"],
+  }
+];
+
+export const extraModules: StoreModule[] = [
+  {
+    id: "wheel-metal",
+    name: "Titanium Scroll Wheel",
+    price: 22,
+    description: "Machined from solid titanium for infinite scrolling momentum.",
+    category: "Switch",
+    specs: ["Titanium alloy", "Ceramic bearing"],
   },
+  {
+    id: "battery-endurance",
+    name: "Endurance Battery Pack",
+    price: 15,
+    description: "Double the battery life span for multi-day tournaments.",
+    category: "Switch",
+    specs: ["800mAh", "Fast charge"],
+  }
 ];
 
 export const hubSetups: HubSetup[] = [
@@ -167,7 +201,7 @@ export const hubSetups: HubSetup[] = [
     id: "cs2-pro",
     title: "CS2 Pro Setup",
     featured: true,
-    moduleIds: ["paw3395", "omron-optical", "honeycomb-shell"],
+    moduleIds: ["btn-omron", "shell-honeycomb"],
     settings: [
       { label: "DPI", value: "800" },
       { label: "Polling Rate", value: "4000Hz" },
@@ -178,7 +212,7 @@ export const hubSetups: HubSetup[] = [
   {
     id: "valorant-aim",
     title: "Valorant Aim",
-    moduleIds: ["paw3395", "omron-optical"],
+    moduleIds: ["btn-omron"],
     settings: [
       { label: "DPI", value: "1600" },
       { label: "Polling Rate", value: "2000Hz" },
@@ -189,7 +223,7 @@ export const hubSetups: HubSetup[] = [
   {
     id: "apex-legends",
     title: "Apex Legends",
-    moduleIds: ["paw3395", "honeycomb-shell"],
+    moduleIds: ["shell-honeycomb"],
     settings: [
       { label: "DPI", value: "1200" },
       { label: "Polling Rate", value: "4000Hz" },
@@ -200,7 +234,7 @@ export const hubSetups: HubSetup[] = [
   {
     id: "rainbow-6-edge",
     title: "Rainbow 6 Edge",
-    moduleIds: ["omron-optical", "honeycomb-shell"],
+    moduleIds: ["btn-omron", "shell-honeycomb"],
     settings: [
       { label: "DPI", value: "1000" },
       { label: "Polling Rate", value: "1000Hz" },

@@ -35,50 +35,46 @@ export function HubSetupCard({ setup, modulesInSetup }: HubSetupCardProps) {
   const modulesQuery = setup.moduleIds.join(",");
 
   return (
-    <article
-      className={`bg-surface-container-low border-l-2 p-8 ${
-        setup.featured ? "border-primary" : "border-outline-variant"
-      }`}
-    >
-      <p className="text-primary text-[10px] tracking-[0.2em] uppercase">Verified Setup</p>
-      <h2 className="mt-3 text-3xl font-bold tracking-tighter text-on-surface">{setup.title}</h2>
+    <article className="rounded-md border border-black bg-white p-8">
+      <p className="text-[10px] tracking-[0.3em] font-bold text-black uppercase">Verified Setup</p>
+      <h2 className="mt-4 text-4xl font-light tracking-tighter text-black">{setup.title}</h2>
 
-      <div className="mt-5 border-t border-outline-variant pt-4">
-        <p className="text-primary text-[10px] tracking-[0.2em] uppercase">Store Modules Used</p>
-        <ul className="mt-3 space-y-2">
+      <div className="mt-8 border-t border-black pt-6">
+        <p className="text-[10px] tracking-[0.3em] font-bold text-black uppercase">Store Modules Used</p>
+        <ul className="mt-4 space-y-3">
           {modulesInSetup.map((module) => (
-            <li key={module.id} className="flex items-center justify-between gap-4 text-sm text-secondary">
+            <li key={module.id} className="flex items-center justify-between gap-4 text-sm font-light text-gray-700">
               <span>{module.name}</span>
-              <span className="text-primary">${module.price}</span>
+              <span className="font-medium text-black">${module.price}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="mt-5 border-t border-outline-variant pt-4">
-        <p className="text-primary text-[10px] tracking-[0.2em] uppercase">Settings</p>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+      <div className="mt-8 border-t border-black pt-6">
+        <p className="text-[10px] tracking-[0.3em] font-bold text-black uppercase">Settings</p>
+        <div className="rounded-md mt-4 grid gap-px bg-black border border-black overflow-hidden sm:grid-cols-2">
           {setup.settings.map((setting) => (
-            <div key={setting.label} className="bg-surface-container-low px-3 py-2">
-              <p className="text-[10px] tracking-[0.15em] text-outline uppercase">{setting.label}</p>
-              <p className="mt-1 text-sm text-on-surface">{setting.value}</p>
+            <div key={setting.label} className="bg-white px-4 py-3">
+              <p className="text-[10px] tracking-[0.2em] font-bold text-gray-500 uppercase">{setting.label}</p>
+              <p className="mt-1 text-sm font-light text-black">{setting.value}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-6 grid gap-2 sm:grid-cols-2">
+      <div className="mt-12 grid gap-4 sm:grid-cols-2">
         <button
           type="button"
           onClick={copySettings}
-          className="border-outline-variant text-on-surface border px-3 py-2 text-xs tracking-[0.15em] uppercase hover:border-primary hover:text-primary"
+          className="rounded-md border border-black bg-transparent px-4 py-3 text-xs font-bold tracking-[0.2em] text-black uppercase transition hover:bg-black hover:text-white"
         >
           {copied ? "Copied" : "Copy Settings"}
         </button>
 
         <Link
           href={`/store?preset=${setup.id}&modules=${modulesQuery}`}
-          className="bg-primary-container text-on-primary px-3 py-2 text-center text-xs font-bold tracking-[0.15em] uppercase"
+          className="rounded-md border border-black bg-black px-4 py-3 text-center text-xs font-bold tracking-[0.2em] text-white uppercase transition hover:bg-transparent hover:text-black"
           onClick={() => trackEvent("hub_apply_to_cart_click", { setup: setup.id })}
         >
           Apply To Cart

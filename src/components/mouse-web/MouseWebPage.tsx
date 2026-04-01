@@ -26,10 +26,7 @@ declare global {
   }
 }
 
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
+// Minimal brutalist interface
 
 // Demo mode: UI remains fully interactive without physical hardware connected.
 const MOCK_MODE = true;
@@ -201,8 +198,7 @@ export function MouseWebPage() {
     if (importedSetup.pollingRate === 4000 && !canUse4k) {
       alert(
         `[Eroare Hardware] Profilul "${importedSetup.playerName}" necesită 4000Hz.\n` +
-        `Senzorul tău actual (${sensorModel}) nu suportă asta.\n` +
-        `Upgradează la modulul PixArt PAW3395 ($25) din magazin pentru a folosi acest profil.`,
+        `Senzorul tău actual (${sensorModel}) nu suportă această frecvență momentan.`,
       );
       return;
     }
@@ -220,62 +216,62 @@ export function MouseWebPage() {
   }
 
   return (
-    <section className={`${spaceMono.className} min-h-screen bg-surface-container-low text-on-surface`}>
+    <section className="min-h-screen bg-white text-black">
       <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[340px_1fr]">
-        <aside className="border-r border-outline-variant bg-surface p-5 md:p-6">
-          <div className="mb-6 flex items-center justify-between gap-4">
-            <h1 className="text-sm tracking-[0.2em] text-primary uppercase">Mouse Web</h1>
+        <aside className="border-r border-black bg-white p-6 md:p-8">
+          <div className="mb-8 flex items-center justify-between gap-4">
+            <h1 className="text-sm font-bold tracking-[0.2em] text-black uppercase">Mouse Web</h1>
             <button
               type="button"
               onClick={handleConnectMouse}
               disabled={connected}
-              className="bg-primary px-3 py-2 text-[10px] font-bold tracking-[0.16em] text-on-primary uppercase transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
+              className="rounded-md border border-black bg-black px-4 py-2 text-[10px] font-bold tracking-[0.2em] text-white uppercase transition hover:bg-white hover:text-black disabled:opacity-50"
             >
               {connected ? "Connected" : "Connect"}
             </button>
           </div>
 
-          <h2 className="text-[11px] tracking-[0.2em] text-primary uppercase">Modules</h2>
+          <h2 className="text-[10px] font-bold tracking-[0.3em] text-black uppercase">Modules</h2>
 
-          <div className="mt-6 space-y-4">
-            <h3 className="text-[10px] tracking-[0.16em] text-secondary uppercase">
+          <div className="mt-8 space-y-6">
+            <h3 className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase">
               Active Modules (Auto-detected)
             </h3>
 
-            <div className="border border-outline-variant bg-surface-container-lowest p-4 text-sm">
+            <div className="rounded-md border border-black bg-white p-5 text-sm font-light">
               <p>
-                <span className="text-secondary">Sensor:</span> PAW3395
-                <span className="text-primary"> (4000Hz Capable)</span>
+                <span className="text-gray-500">Sensor:</span> PAW3395
+                <span className="text-black font-bold"> (4000Hz Capable)</span>
               </p>
-              <p className="mt-2">
-                <span className="text-secondary">Switches:</span> Omron Optical
+              <p className="mt-3">
+                <span className="text-gray-500">Switches:</span> Omron Optical
               </p>
             </div>
 
-            <div className="border border-outline-variant bg-surface-container-lowest p-4">
-              <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="text-secondary">Switch Health</span>
-                <span className="font-bold text-primary">{switchHealth}%</span>
+            <div className="rounded-md border border-black bg-white p-5">
+              <div className="mb-3 flex items-center justify-between text-sm">
+                <span className="text-gray-500">Switch Health</span>
+                <span className="font-bold text-black">{switchHealth}%</span>
               </div>
-              <div className="h-2 w-full bg-surface-variant">
-                <div className="h-full bg-primary" style={{ width: `${switchHealth}%` }} />
+              <div className="h-1 w-full bg-gray-200">
+                <div className="h-full bg-black" style={{ width: `${switchHealth}%` }} />
               </div>
             </div>
           </div>
 
-          <div className="mt-8">
-            <h3 className="text-[10px] tracking-[0.16em] text-secondary uppercase">
+          <div className="mt-12">
+            <h3 className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase">
               Passive Modules (User Selected)
             </h3>
 
-            <label htmlFor="shell-select" className="mt-4 block text-xs text-secondary uppercase">
+            <label htmlFor="shell-select" className="mt-6 block text-xs font-bold text-black uppercase">
               Shell Type
             </label>
             <select
               id="shell-select"
               value={shell}
               onChange={(event) => handleShellChange(event.target.value as (typeof SHELL_OPTIONS)[number]["value"])}
-              className="mt-2 w-full border border-outline bg-surface p-3 text-sm text-on-surface focus:border-primary focus:outline-none"
+              className="rounded-md mt-3 w-full border border-black bg-white p-4 text-sm font-light text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
             >
               {SHELL_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -284,15 +280,15 @@ export function MouseWebPage() {
               ))}
             </select>
 
-            <p className="mt-3 text-xs text-secondary">Current shell: {shellLabel}</p>
+            <p className="mt-4 text-xs font-light text-gray-500">Current shell: {shellLabel}</p>
           </div>
 
-          <div className="mt-10 space-y-3">
+          <div className="mt-16 space-y-4">
             <button
               type="button"
               onClick={handleSaveChanges}
               disabled={!connected}
-              className="w-full bg-primary px-4 py-3 text-xs font-bold tracking-[0.16em] text-on-primary uppercase transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
+              className="rounded-md w-full border border-black bg-black px-6 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase transition hover:bg-white hover:text-black disabled:opacity-50"
             >
               Save Profile
             </button>
@@ -300,20 +296,20 @@ export function MouseWebPage() {
             <button
               type="button"
               onClick={handleImportSetup}
-              className="w-full border border-primary bg-transparent px-4 py-3 text-xs font-bold tracking-[0.16em] text-primary uppercase transition hover:bg-primary/10"
+              className="rounded-md w-full border border-black bg-transparent px-6 py-4 text-xs font-bold tracking-[0.2em] text-black uppercase transition hover:bg-black hover:text-white"
             >
               Import s1mple CS2
             </button>
           </div>
         </aside>
 
-        <main className="bg-surface-container-low p-5 md:p-8">
-          <h2 className="text-[11px] tracking-[0.2em] text-primary uppercase">Performance</h2>
+        <main className="bg-white p-6 md:p-12 lg:p-20">
+          <h2 className="text-[10px] font-bold tracking-[0.3em] text-black uppercase">Performance Tuning</h2>
 
-          <section className="mt-7 border border-outline-variant bg-surface p-5 md:p-6">
-            <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-[10px] tracking-[0.16em] text-secondary uppercase">DPI</h3>
-              <span className="text-2xl font-bold text-primary">{dpi}</span>
+          <section className="rounded-md mt-10 border border-black bg-white p-8 md:p-12">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase">DPI</h3>
+              <span className="text-4xl font-light text-black">{dpi}</span>
             </div>
             <input
               type="range"
@@ -322,17 +318,17 @@ export function MouseWebPage() {
               step={100}
               value={dpi}
               onChange={(event) => handleDpiChange(Number(event.target.value))}
-              className="w-full accent-primary"
+              className="w-full accent-black"
             />
-            <div className="mt-2 flex justify-between text-xs text-secondary">
+            <div className="mt-4 flex justify-between text-xs font-light text-gray-500">
               <span>400</span>
               <span>26000</span>
             </div>
           </section>
 
-          <section className="mt-6 border border-outline-variant bg-surface p-5 md:p-6">
-            <h3 className="mb-4 text-[10px] tracking-[0.16em] text-secondary uppercase">Polling Rate</h3>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <section className="rounded-md mt-10 border border-black bg-white p-8 md:p-12">
+            <h3 className="mb-6 text-xs font-bold tracking-[0.2em] text-gray-500 uppercase">Polling Rate</h3>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {POLLING_OPTIONS.map((option) => {
                 const isDisabled = option >= 4000 && !canUse4k;
                 const isActive = pollingRate === option;
@@ -343,12 +339,12 @@ export function MouseWebPage() {
                     type="button"
                     disabled={isDisabled}
                     onClick={() => handlePollingRateChange(option)}
-                    className={`border px-4 py-3 text-sm transition ${
+                    className={`rounded-md border border-black px-6 py-4 text-sm font-light transition ${
                       isDisabled
-                        ? "cursor-not-allowed border-outline-variant text-outline-variant"
+                        ? "cursor-not-allowed border-gray-200 text-gray-300"
                         : isActive
-                          ? "border-primary bg-primary/20 text-primary"
-                          : "border-outline text-on-surface hover:border-primary"
+                          ? "bg-black text-white"
+                          : "bg-transparent text-black hover:bg-gray-100"
                     }`}
                   >
                     {option}Hz
@@ -356,14 +352,14 @@ export function MouseWebPage() {
                 );
               })}
             </div>
-            <p className="mt-3 text-xs text-secondary">
+            <p className="mt-6 text-xs font-light text-gray-500">
               4000Hz and 8000Hz are automatically enabled only when a compatible sensor is detected.
             </p>
           </section>
 
-          <section className="mt-6 border border-outline-variant bg-surface p-5 md:p-6">
-            <h3 className="mb-4 text-[10px] tracking-[0.16em] text-secondary uppercase">Lift-off Distance (LOD)</h3>
-            <div className="flex gap-3">
+          <section className="rounded-md mt-10 border border-black bg-white p-8 md:p-12">
+            <h3 className="mb-6 text-xs font-bold tracking-[0.2em] text-gray-500 uppercase">Lift-off Distance (LOD)</h3>
+            <div className="flex flex-wrap gap-4">
               {LOD_OPTIONS.map((option) => {
                 const isActive = lod === option;
 
@@ -372,10 +368,10 @@ export function MouseWebPage() {
                     key={option}
                     type="button"
                     onClick={() => handleLodChange(option)}
-                    className={`border px-5 py-3 text-sm transition ${
+                    className={`rounded-md border border-black px-8 py-4 text-sm font-light transition ${
                       isActive
-                        ? "border-primary bg-primary/20 text-primary"
-                        : "border-outline text-on-surface hover:border-primary"
+                        ? "bg-black text-white"
+                        : "bg-transparent text-black hover:bg-gray-100"
                     }`}
                   >
                     {option.charAt(0).toUpperCase() + option.slice(1)}
@@ -385,9 +381,9 @@ export function MouseWebPage() {
             </div>
           </section>
 
-          <section className="mt-6 border border-outline-variant bg-surface p-5 md:p-6">
-            <h3 className="mb-2 text-[10px] tracking-[0.16em] text-secondary uppercase">Connection Status</h3>
-            <p className={`text-sm ${connected ? "text-primary" : "text-secondary"}`}>{statusText}</p>
+          <section className="rounded-md mt-10 border border-black bg-white p-8 md:p-12">
+            <h3 className="mb-4 text-xs font-bold tracking-[0.2em] text-gray-500 uppercase">Connection Status</h3>
+            <p className={`text-base font-light ${connected ? "text-black" : "text-gray-500"}`}>{statusText}</p>
           </section>
         </main>
       </div>

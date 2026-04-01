@@ -72,7 +72,7 @@ export function WaitlistForm({
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <div
-        className={isInline ? "border-outline flex max-w-md flex-col border-b sm:flex-row" : "flex w-full flex-col gap-3 sm:flex-row"}
+        className={isInline ? "flex w-full max-w-2xl flex-col border-b border-black sm:flex-row" : "flex w-full flex-col gap-4 sm:flex-row"}
       >
         <label htmlFor={`email-${source}`} className="sr-only">
           Email address
@@ -86,8 +86,8 @@ export function WaitlistForm({
           required
           className={
             isInline
-              ? "placeholder:text-outline-variant w-full border-none bg-transparent px-0 py-4 text-sm tracking-widest text-on-surface uppercase focus:ring-0"
-              : "bg-surface-container-low placeholder:text-outline-variant w-full border-none px-8 py-6 text-sm tracking-widest text-on-surface uppercase focus:ring-2 focus:ring-primary"
+              ? "placeholder-gray-400 w-full border-none bg-transparent px-4 py-4 text-sm tracking-widest text-black uppercase focus:ring-0"
+              : "rounded-md placeholder-gray-400 w-full border border-black bg-transparent px-8 py-6 text-sm tracking-widest text-black uppercase focus:outline-none"
           }
         />
 
@@ -107,8 +107,8 @@ export function WaitlistForm({
           disabled={isLoading}
           className={
             isInline
-              ? "text-primary py-4 text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap transition-colors hover:text-on-surface disabled:opacity-70"
-              : "bg-primary-container text-on-primary w-full px-12 py-6 text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap transition-colors hover:bg-primary-fixed disabled:opacity-70 sm:w-auto"
+              ? "rounded-md border border-black bg-black px-8 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase whitespace-nowrap transition-colors hover:bg-transparent hover:text-black disabled:opacity-70"
+              : "rounded-md border border-black bg-black w-full px-12 py-6 text-xs font-bold tracking-[0.2em] text-white uppercase whitespace-nowrap transition-colors hover:bg-transparent hover:text-black disabled:opacity-70 sm:w-auto"
           }
         >
           {isLoading ? "Submitting..." : submitLabel}

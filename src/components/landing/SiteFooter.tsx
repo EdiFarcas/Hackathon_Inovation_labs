@@ -5,7 +5,7 @@ const siteCopy = getSiteCopy("en");
 
 export function SiteFooter() {
   return (
-    <footer className="border-outline-variant/20 flex w-full flex-col items-center justify-between gap-8 border-t bg-surface-container-lowest px-12 py-16 md:flex-row">
+    <footer className="flex w-full flex-col items-center justify-between gap-12 border-t border-black bg-white px-12 py-32 md:flex-row">
       <div className="font-headline text-xl font-black text-primary">
         KOVA KINETIC
       </div>

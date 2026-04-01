@@ -18,7 +18,7 @@ export function TopNavBar() {
   }
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-white/80 px-4 py-3 backdrop-blur-xl sm:px-6 md:px-8 md:py-4 border-b border-outline-variant/20">
+    <nav className="fixed top-0 z-50 w-full border-b border-black bg-white px-4 py-4 sm:px-6 md:px-8 md:py-6">
       <div className="flex items-center justify-between">
         <Link
           href="/"
@@ -33,7 +33,7 @@ export function TopNavBar() {
             alt="KOVA logo"
             width={90}
             height={34}
-            className="rounded-sm"
+            className="rounded-none object-contain"
             priority
           />
         </Link>
@@ -58,7 +58,7 @@ export function TopNavBar() {
         <div className="flex items-center gap-3">
           <Link
             href="/waitlist"
-            className="bg-primary-container text-on-primary hidden px-6 py-2 text-xs font-bold tracking-widest uppercase transition-transform duration-100 hover:bg-primary-fixed active:scale-95 md:inline-block"
+            className="rounded-md hidden border border-black bg-transparent px-8 py-3 text-xs font-bold tracking-widest uppercase text-black transition-all hover:bg-black hover:text-white md:inline-block"
             onClick={() => trackEvent("cta_nav_waitlist_click")}
           >
             Join Waitlist
@@ -85,7 +85,7 @@ export function TopNavBar() {
                 key={link.label}
                 href={link.href}
                 className={`px-2 py-2 text-sm tracking-wide uppercase transition-colors ${
-                  pathname === link.href ? "text-primary bg-primary/5" : "text-on-surface-variant hover:text-primary"
+                  pathname === link.href ? "bg-black text-white" : "text-black hover:bg-gray-100"
                 }`}
                 onClick={() => {
                   trackEvent("nav_link_click", { label: link.label, viewport: "mobile" });
@@ -97,7 +97,7 @@ export function TopNavBar() {
             ))}
             <Link
               href="/waitlist"
-              className="bg-primary-container text-on-primary mt-2 px-4 py-3 text-center text-xs font-bold tracking-widest uppercase"
+              className="rounded-md mt-2 border border-black bg-black px-4 py-3 text-center text-xs font-bold tracking-widest text-white uppercase hover:bg-transparent hover:text-black transition-colors"
               onClick={() => {
                 trackEvent("cta_nav_waitlist_click", { viewport: "mobile" });
                 closeMobileMenu();

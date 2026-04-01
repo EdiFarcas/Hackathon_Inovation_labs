@@ -1,60 +1,56 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #1C1C1C;
+  --color-primary: #000000;
   --color-on-primary: #FFFFFF;
-  --color-primary-container: #333333;
+  --color-primary-container: #000000;
   --color-on-primary-container: #FFFFFF;
   
-  --color-secondary: #D3D3D3;
+  --color-secondary: #757575;
   --color-on-secondary: #000000;
-  --color-secondary-container: #E8E8E8;
-  --color-on-secondary-container: #1C1C1C;
+  --color-secondary-container: #F0F0F0;
+  --color-on-secondary-container: #000000;
   
   --color-tertiary: #A0A0A0;
   --color-on-tertiary: #000000;
   --color-tertiary-container: #F0F0F0;
-  --color-on-tertiary-container: #1C1C1C;
+  --color-on-tertiary-container: #000000;
   
-  --color-error: #BA1A1A;
+  --color-error: #000000;
   --color-on-error: #FFFFFF;
-  --color-error-container: #FFDAD6;
-  --color-on-error-container: #410002;
+  --color-error-container: #F5F5F5;
+  --color-on-error-container: #000000;
   
-  --color-background: #F8F9FA;
-  --color-on-background: #1C1C1C;
+  --color-background: #FFFFFF;
+  --color-on-background: #000000;
   
   --color-surface: #FFFFFF;
-  --color-on-surface: #1C1C1C;
-  --color-surface-variant: #E7EAE8;
-  --color-on-surface-variant: #444846;
+  --color-on-surface: #000000;
+  --color-surface-variant: #F9F9F9;
+  --color-on-surface-variant: #000000;
   
   --color-surface-container-lowest: #FFFFFF;
-  --color-surface-container-low: #F3F4F3;
-  --color-surface-container: #EDEDED;
-  --color-surface-container-high: #E7E8E7;
-  --color-surface-container-highest: #E1E2E1;
+  --color-surface-container-low: #FFFFFF;
+  --color-surface-container: #FFFFFF;
+  --color-surface-container-high: #F5F5F5;
+  --color-surface-container-highest: #EAEAEA;
   
-  --color-outline: #747975;
-  --color-outline-variant: #C4C7C5;
+  --color-outline: #000000;
+  --color-outline-variant: #EAEAEA;
 
-  --font-headline: var(--font-space-grotesk);
-  --font-body: var(--font-space-grotesk);
-  --font-label: var(--font-space-grotesk);
+  --font-headline: var(--font-inter);
+  --font-body: var(--font-inter);
+  --font-label: var(--font-inter);
 }
 
 body {
-  background-color: #F8F9FA;
-  color: #1C1C1C;
+  background-color: #FFFFFF;
+  color: #000000;
 }
 
 .glass-panel {
-  background: rgb(255 255 255 / 60%);
-  backdrop-filter: blur(20px);
-}
-
-.text-glow {
-  text-shadow: 0 0 20px rgb(28 28 28 / 30%);
+  background: #FFFFFF;
+  border: 1px solid #000000;
 }
 
 .reveal-fade-up {

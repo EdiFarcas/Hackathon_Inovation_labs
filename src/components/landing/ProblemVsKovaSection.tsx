@@ -2,25 +2,22 @@ import { kovaAdvantages, legacyPainPoints } from "@/content/site";
 
 export function ProblemVsKovaSection() {
   return (
-    <section className="bg-surface-container-lowest py-32">
+    <section className="bg-white py-48">
       <div className="container mx-auto px-8">
-        <div className="grid gap-1 px-8 md:grid-cols-2">
-          <div className="group relative space-y-8 overflow-hidden bg-surface p-12">
-            <div className="absolute top-0 right-0 p-4 opacity-10">
-              <span className="text-9xl">⌫</span>
-            </div>
-            <h3 className="text-on-surface-variant text-3xl font-bold tracking-tighter">
+        <div className="grid md:grid-cols-2">
+          <div className="rounded-l-md border border-black p-16 space-y-12">
+            <h3 className="text-4xl font-light tracking-tighter text-black">
               Legacy Hardware
             </h3>
-            <p className="text-outline max-w-xs text-sm leading-relaxed">
+            <p className="max-w-xs text-lg leading-relaxed text-gray-700 font-light">
               Sensors age. Switches fail. Shells wear down. The traditional
               cycle forces you into planned obsolescence.
             </p>
-            <ul className="space-y-4 pt-4">
+            <ul className="space-y-6 pt-8 border-t border-black">
               {legacyPainPoints.map((item) => (
                 <li
                   key={item}
-                  className="text-error/60 flex items-center gap-3 text-xs tracking-widest uppercase"
+                  className="flex items-center gap-4 text-xs tracking-widest uppercase text-black"
                 >
                   <span className="text-sm">✕</span>
                   {item}
@@ -29,24 +26,21 @@ export function ProblemVsKovaSection() {
             </ul>
           </div>
 
-          <div className="bg-surface-container-low border-primary/30 relative space-y-8 overflow-hidden border-l p-12">
-            <div className="text-primary absolute top-0 right-0 p-4 opacity-20">
-              <span className="text-9xl">◌</span>
-            </div>
-            <h3 className="text-primary text-3xl font-bold tracking-tighter">
+          <div className="rounded-r-md border border-black border-l-0 bg-black text-white p-16 space-y-12">
+            <h3 className="text-4xl font-light tracking-tighter text-white">
               The KOVA Kinetic
             </h3>
-            <p className="text-on-surface-variant max-w-xs text-sm leading-relaxed">
+            <p className="max-w-xs text-lg leading-relaxed text-gray-300 font-light">
               A living ecosystem. Upgrade individual components as technology
               evolves. Your muscle memory, preserved forever.
             </p>
-            <ul className="space-y-4 pt-4">
+            <ul className="space-y-6 pt-8 border-t border-white/20">
               {kovaAdvantages.map((item) => (
                 <li
                   key={item}
-                  className="text-primary flex items-center gap-3 text-xs tracking-widest uppercase"
+                  className="flex items-center gap-4 text-xs tracking-widest uppercase text-white"
                 >
-                  <span className="text-sm">✓</span>
+                  <span className="text-sm text-white">✓</span>
                   {item}
                 </li>
               ))}
