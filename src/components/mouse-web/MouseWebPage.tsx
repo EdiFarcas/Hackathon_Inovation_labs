@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Space_Mono } from "next/font/google";
+
 
 // WebHID types
 interface HIDDevice {

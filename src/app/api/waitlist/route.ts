@@ -55,11 +55,16 @@ export async function POST(request: NextRequest) {
         source,
       },
     });
-  } catch (error: any) {
-    if (error.code === 'P2002') {
+  } catch (error) {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      (error as { code: string }).code === "P2002"
+    ) {
       return NextResponse.json({ error: "Email already registered." }, { status: 400 });
     }
-    console.error("[waitlist] DB Error:", error);
+    console.error("[waitlist] DB Error:", error instanceof Error ? error.message : String(error));
     return NextResponse.json({ error: "Database error." }, { status: 500 });
   }
 
