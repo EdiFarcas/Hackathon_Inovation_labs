@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isRateLimited } from "@/lib/rate-limit";
 import { isValidEmail } from "@/lib/validation";
+import prisma from "@/lib/prisma";
 
 type WaitlistPayload = {
   email?: string;
@@ -45,6 +46,21 @@ export async function POST(request: NextRequest) {
 
   if (!isValidEmail(email)) {
     return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
+  }
+
+  try {
+    await prisma.waitlistEntry.create({
+      data: {
+        email,
+        source,
+      },
+    });
+  } catch (error: any) {
+    if (error.code === 'P2002') {
+      return NextResponse.json({ error: "Email already registered." }, { status: 400 });
+    }
+    console.error("[waitlist] DB Error:", error);
+    return NextResponse.json({ error: "Database error." }, { status: 500 });
   }
 
   await forwardToWebhook({ email, source });
