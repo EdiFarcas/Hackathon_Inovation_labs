@@ -126,14 +126,14 @@ export const baseKits = [
   {
     id: "kit-kova",
     name: "KOVA Kit",
-    price: 80,
+    price: 70,
     description: "The essential modular chassis with a reliable sensor and microcontroller. A solid foundation you can upgrade anytime.",
     includes: ["Magnetic modular chassis", "Standard sensor & MCU", "Toolless lock system"],
   },
   {
     id: "kit-kova-pro",
     name: "KOVA Pro Kit",
-    price: 130,
+    price: 110,
     description: "Built around a higher-performance sensor and a faster microcontroller for lower latency and higher polling rates.",
     includes: ["Magnetic modular chassis", "High-performance sensor & MCU", "Toolless lock system"],
   }
