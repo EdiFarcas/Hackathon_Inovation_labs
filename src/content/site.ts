@@ -54,7 +54,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
   en: {
     brandName: "KOVA",
     nav: [
-      { label: "Store", href: "/store" },
+      { label: "Kinetic", href: "/store" },
       { label: "Modules", href: "/modules" },
       { label: "KOVA Hub", href: "/hub" },
       { label: "Mouse Web", href: "/mouse-web" },

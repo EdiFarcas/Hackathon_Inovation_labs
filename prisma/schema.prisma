@@ -11,6 +11,17 @@ datasource db {
   provider = "postgresql"
 }
 
+model MouseBuild {
+  id           String   @id @default(cuid())
+  email        String?
+  baseColor    String
+  switchType   String
+  leftArtwork  String
+  rightArtwork String
+  backArtwork  String
+  createdAt    DateTime @default(now())
+}
+
 model WaitlistEntry {
   id        String   @id @default(cuid())
   email     String   @unique

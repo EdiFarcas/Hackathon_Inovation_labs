@@ -5,10 +5,8 @@ import { defineConfig } from "prisma/config";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
-  migrations: {
-    path: "prisma/migrations",
-  },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // Această linie este cea care lipsește sau e greșită 
+    url: process.env.DATABASE_URL,
   },
 });

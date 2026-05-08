@@ -1,291 +1,293 @@
 "use client";
 
 import { Suspense, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { baseKits, buttonModules, shellModules, extraModules } from "@/content/site";
+import { buttonModules } from "@/content/site";
+
+const COLOR_NAMES: Record<string, string> = {
+  // Grayscale / Industriale
+  "#000000": "Deep Carbon",
+  "#333333": "Space Gray",
+  "#666666": "Steel Matte",
+  "#999999": "Titanium Raw",
+  "#CCCCCC": "Anodized Silver",
+  "#FFFFFF": "Ghost White",
+
+  // Roșu / Oxide
+  "#FF0000": "Racing Red",
+  "#CC0000": "Crimson Bolt",
+  "#990000": "Blood Cell",
+  "#FF6666": "Coral Circuit",
+  "#FFCCCC": "Soft Blossom",
+  "#800000": "Dark Oxide",
+
+  // Verde / Kinetic
+  "#00FF00": "Neon Kinetic",
+  "#00CC00": "Signal Green",
+  "#009900": "Cyber Moss",
+  "#66FF66": "Bio Hazard",
+  "#CCFFCC": "Mint Logic",
+  "#008000": "Forest Protocol",
+
+  // Albastru / Sonic
+  "#0000FF": "Sonic Blue",
+  "#0000CC": "Electric Pulse",
+  "#000099": "Deep Sea Core",
+  "#6666FF": "Plasma Blue",
+  "#CCCCFF": "Cloud Buffer",
+  "#000080": "Midnight Navy",
+
+  // Galben / Cyber
+  "#FFFF00": "Cyber Yellow",
+  "#CCCC00": "Industrial Gold",
+  "#999900": "Acid Olive",
+  "#FFFF66": "Laser Lemon",
+  "#FFFFCC": "Pale Voltage",
+  "#808000": "Antique Brass",
+
+  // Cyan / Aqua
+  "#00FFFF": "Hyper Cyan",
+  "#00CCCC": "Turquoise Link",
+  "#22D3EE": "Sky Matrix",
+  "#66FFFF": "Ice Flow",
+  "#CCFFFF": "Static Mist",
+  "#008080": "Dark Teal",
+
+  // Magenta / Purple
+  "#FF00FF": "Digital Violet",
+  "#CC00CC": "Ultra Magenta",
+  "#990099": "Deep Orchid",
+  "#FF66FF": "Synth Wave",
+  "#FFCCFF": "Pink Nebula",
+  "#800080": "Void Purple"
+};
+
+// Am eliminat duplicatele pentru a scapa de eroarea de consola 
+const PRESET_HUES = [
+  "#000000", "#333333", "#666666", "#999999", "#CCCCCC", "#FFFFFF",
+  "#FF0000", "#CC0000", "#990000", "#FF6666", "#FFCCCC", "#800000",
+  "#00FF00", "#00CC00", "#009900", "#66FF66", "#CCFFCC", "#008000",
+  "#0000FF", "#0000CC", "#000099", "#6666FF", "#CCCCFF", "#000080",
+  "#FFFF00", "#CCCC00", "#999900", "#FFFF66", "#FFFFCC", "#808000",
+  "#00FFFF", "#00CCCC", "#22D3EE", "#66FFFF", "#CCFFFF", "#008080", // Am pus un Cyan diferit aici
+  "#FF00FF", "#CC00CC", "#990099", "#FF66FF", "#FFCCFF", "#800080"
+];
+
+const ARTWORK_OPTIONS = [
+  { id: "solid", name: "Solid Minimal" },
+  { id: "honeycomb", name: "Hex-Grid" },
+  { id: "cyber", name: "Cyber-Lines" },
+  { id: "pro-grip", name: "Pro Texture" },
+];
+
+const ALL_SWITCHES = [
+  ...buttonModules,
+  { id: "btn-kailh", name: "Kailh GM 8.0", description: "The king of crispness. Heavy tactile click." },
+  { id: "btn-ttc", name: "TTC Gold Dust", description: "Ultra-fast rebound, great for spam clicking." },
+  { id: "btn-silent", name: "Silent Stealth", description: "Tactile feel without the acoustic signature." }
+];
 
 function MarketplaceContent() {
-  const searchParams = useSearchParams();
-  const presetName = searchParams.get("preset");
-
+  // Dacă găsește codul în listă, pune numele. Dacă e o culoare custom, pune "Custom Hue"
   const [step, setStep] = useState<number>(1);
-  const [selectedKitId, setSelectedKitId] = useState<string>(baseKits[0].id);
-  const [selectedButtonId, setSelectedButtonId] = useState<string | null>(null);
-  const [selectedShellId, setSelectedShellId] = useState<string | null>(null);
-  const [selectedExtraIds, setSelectedExtraIds] = useState<string[]>([]);
+  const [customColor, setCustomColor] = useState("#9B2222");
+  const [isSaving, setIsSaving] = useState(false);
 
-  // Find actual objects from selected IDs
-  const selectedKit = useMemo(() => baseKits.find(k => k.id === selectedKitId) || baseKits[0], [selectedKitId]);
-  const selectedButton = useMemo(() => buttonModules.find(b => b.id === selectedButtonId), [selectedButtonId]);
-  const selectedShell = useMemo(() => shellModules.find(s => s.id === selectedShellId), [selectedShellId]);
-  const selectedExtrasList = useMemo(() => extraModules.filter(e => selectedExtraIds.includes(e.id)), [selectedExtraIds]);
+  const colorDisplayName = COLOR_NAMES[customColor.toUpperCase()] || "Kinetic Custom Hue";
+  
+  const [selectedButtonId, setSelectedButtonId] = useState<string>(ALL_SWITCHES[0].id);
+  const [moduleArtwork, setModuleArtwork] = useState({
+    left: "solid",
+    right: "honeycomb",
+    back: "cyber",
+  });
 
-  const totalPrice = useMemo(() => {
-    let total = selectedKit.price;
-    // Switches and shells are included in the kit — only extras add cost
-    selectedExtrasList.forEach(e => total += e.price);
-    return total;
-  }, [selectedKit, selectedExtrasList]);
+  const activeButton = useMemo(() => 
+    ALL_SWITCHES.find(b => b.id === selectedButtonId) || ALL_SWITCHES[0]
+  , [selectedButtonId]);
 
-  const toggleExtra = (id: string) => {
-    setSelectedExtraIds(prev => prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]);
-  };
+  async function handleOrder() {
+    setIsSaving(true);
+    const payload = {
+      baseColor: customColor,
+      switchType: activeButton.name,
+      modules: moduleArtwork
+    };
 
-  const [hideBanner, setHideBanner] = useState(false);
+    try {
+      const response = await fetch("/api/kinetic", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-  const stepsInfo = [
-    { num: 1, label: "Base Kit" },
-    { num: 2, label: "Switches" },
-    { num: 3, label: "Shell" },
-    { num: 4, label: "Extras" }
-  ];
+      if (response.ok) {
+        alert("KINETIC BUILD SECURED! Configurația a fost salvată în baza de date.");
+      } else {
+        alert("Eroare la salvare. Verifică baza de date.");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSaving(false);
+    }
+  }
 
   return (
     <section className="min-h-screen bg-white px-4 py-32 text-black sm:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-12 xl:grid-cols-[1fr_360px]">
-        {/* BUILDER AREA */}
+      <div className="mx-auto grid w-full max-w-7xl gap-12 xl:grid-cols-[1fr_400px]">
         <div className="space-y-12">
           <header className="space-y-4">
-            <h1 className="text-4xl font-light tracking-tighter text-black md:text-5xl">
-              Configurator
-            </h1>
-            <p className="max-w-xl text-lg font-light leading-relaxed text-gray-600">
-              Build your KOVA loadout from the ground up or expand your existing ecosystem. Start with a chassis, pick your acoustics, and finalize with pro attachments.
-            </p>
-
-            {presetName && !hideBanner && (
-              <div className="mt-4 flex items-center justify-between rounded-md border border-black bg-gray-50 px-4 py-3">
-                <span className="text-sm font-bold text-black">Loaded config: {presetName}</span>
-                <button aria-label="Dismiss" onClick={() => setHideBanner(true)} className="text-black hover:opacity-70">✕</button>
-              </div>
-            )}
+            <h1 className="text-6xl font-black tracking-tighter italic uppercase">Kinetic Builder</h1>
           </header>
 
-          {/* Stepper Navigation */}
-          <div className="flex items-center gap-4 mb-8 border-b border-gray-200 pb-8 overflow-x-auto whitespace-nowrap scrollbar-hide">
-            {stepsInfo.map(s => (
-              <div key={s.num} className="flex items-center gap-3">
-                <div 
-                  onClick={() => { if (step > s.num) setStep(s.num); }}
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-xs font-bold transition-all ${
-                    step === s.num 
-                      ? 'border-black bg-black text-white' 
-                      : step > s.num 
-                        ? 'border-black bg-white cursor-pointer hover:bg-gray-100 text-black' 
-                        : 'border-gray-200 bg-transparent text-gray-400'
-                  }`}
-                >
-                  {s.num}
-                </div>
-                <span 
-                  onClick={() => { if (step > s.num) setStep(s.num); }}
-                  className={`text-xs tracking-widest uppercase transition-colors md:block hidden ${
-                    step === s.num 
-                      ? 'font-bold text-black' 
-                      : step > s.num 
-                        ? 'text-black cursor-pointer hover:text-gray-600' 
-                        : 'text-gray-400'
-                  }`}
-                >
-                  {s.label}
-                </span>
-                {s.num !== 4 && <div className="h-px w-6 lg:w-12 bg-gray-200 mx-1 lg:mx-2 hidden sm:block" />}
-              </div>
-            ))}
+          <div className="flex gap-8 border-b border-black pb-8 text-[10px] font-black uppercase tracking-[0.3em]">
+            <div className={step === 1 ? "text-black" : "text-gray-300"}>01. Base Color</div>
+            <div className={step === 2 ? "text-black" : "text-gray-300"}>02. Switches</div>
+            <div className={step === 3 ? "text-black" : "text-gray-300"}>03. Modules</div>
           </div>
 
           <div className="min-h-[500px]">
-            {/* STEP 1: KIT */}
             {step === 1 && (
-              <div className="space-y-6 animate-in fade-in duration-500">
-                <h2 className="text-xl font-light tracking-tight text-black">1. Choose your Foundation</h2>
-                <div className="grid gap-6 md:grid-cols-2">
-                  {baseKits.map(kit => (
-                    <div 
-                      key={kit.id} 
-                      onClick={() => setSelectedKitId(kit.id)}
-                      className={`cursor-pointer rounded-md border p-8 transition-all duration-200 ${selectedKitId === kit.id ? 'border-2 border-black bg-gray-50/50 shadow-sm' : 'border-gray-200 bg-white hover:border-black'}`}
-                    >
-                      <div className="flex flex-col h-full">
-                        <div className="flex justify-between items-start mb-4">
-                          <h3 className="text-2xl font-light">{kit.name}</h3>
-                          <span className="text-lg font-medium">${kit.price}</span>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-8 flex-grow">{kit.description}</p>
-                        <ul className="space-y-2 border-t border-gray-200 pt-6">
-                          {kit.includes.map(inc => (
-                            <li key={inc} className="text-xs text-gray-500 tracking-wide uppercase">• {inc}</li>
-                          ))}
-                        </ul>
-                      </div>
+              <div className="animate-in fade-in duration-500">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                  
+                  {/* Selector Grid fara erori */}
+                  <div className="space-y-6">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Select Foundation Color:</p>
+                    <div className="grid grid-cols-6 gap-2 p-4 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                      {PRESET_HUES.map((h, index) => (
+                        <div 
+                          key={`${h}-${index}`} // Cheie unica garantata 
+                          onClick={() => setCustomColor(h)}
+                          style={{ backgroundColor: h }}
+                          className={`aspect-square cursor-pointer border-2 transition-transform hover:scale-105 ${customColor === h ? 'border-black scale-110' : 'border-transparent'}`}
+                        />
+                      ))}
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Previzualizare Centrata corect */}
+                  <div className="flex flex-col items-center justify-center p-12 border-2 border-black bg-gray-50 relative">
+                    <p className="absolute top-4 text-[10px] font-black uppercase text-gray-400">Live View</p>
+                    
+                    {/* Cercul cu umbra drop-shadow centrat */}
+                    <div 
+                      className="w-48 h-48 rounded-full border-4 border-black transition-all duration-300"
+                      style={{ 
+                        backgroundColor: customColor,
+                        filter: "drop-shadow(12px 12px 0px #000000)" 
+                      }}
+                    />
+                    
+                    <div className="mt-16 text-center">
+                       <input 
+                        type="text" 
+                        value={customColor} 
+                        onChange={(e) => setCustomColor(e.target.value)}
+                        className="w-32 bg-transparent text-center text-2xl font-black italic uppercase tracking-tighter focus:outline-none border-b-2 border-black"
+                       />
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-8 flex justify-end">
-                  <button onClick={() => setStep(2)} className="rounded-md border border-black bg-black px-12 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase hover:bg-transparent hover:text-black transition">Next Step</button>
-                </div>
+
+                <button onClick={() => setStep(2)} className="mt-16 bg-black text-white px-12 py-5 text-xs font-black uppercase tracking-[0.2em] hover:invert transition">
+                  Confirm Selection
+                </button>
               </div>
             )}
-
-            {/* STEP 2: SWITCHES */}
+            
             {step === 2 && (
-              <div className="space-y-6 animate-in fade-in duration-500">
-                <h2 className="text-xl font-light tracking-tight text-black">2. Main Button Actions</h2>
-                <div className="grid gap-6 md:grid-cols-2">
-                  {buttonModules.map(btn => (
+              <div className="animate-in fade-in duration-500">
+                <h2 className="mb-8 text-2xl font-light uppercase tracking-tighter">Tactical Response (Switch Selection)</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {ALL_SWITCHES.map(btn => (
                     <div 
                       key={btn.id} 
                       onClick={() => setSelectedButtonId(btn.id)}
-                      className={`cursor-pointer rounded-md border p-8 transition-all duration-200 ${selectedButtonId === btn.id ? 'border-2 border-black bg-gray-50/50 shadow-sm' : 'border-gray-200 bg-white hover:border-black'}`}
+                      className={`cursor-pointer border-2 p-8 transition-all ${selectedButtonId === btn.id ? 'border-black bg-gray-50' : 'border-gray-100 hover:border-black'}`}
                     >
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-2xl font-light">{btn.name}</h3>
-                        <span className="text-xs font-bold tracking-widest uppercase text-gray-400">Included</span>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-6">{btn.description}</p>
-                      <ul className="flex gap-2">
-                        {btn.specs.map(spec => (
-                          <li key={spec} className="rounded-sm bg-gray-100 px-2 py-1 text-[10px] uppercase tracking-widest text-gray-600">{spec}</li>
-                        ))}
-                      </ul>
+                      <h3 className="text-xl font-black uppercase italic tracking-tighter">{btn.name}</h3>
+                      <p className="text-sm text-gray-500 mt-2 leading-relaxed">{btn.description}</p>
                     </div>
                   ))}
                 </div>
-                <div className="mt-8 flex justify-between">
-                  <button onClick={() => setStep(1)} className="rounded-md border border-gray-300 px-8 py-4 text-xs font-bold tracking-[0.2em] text-black uppercase hover:border-black transition">Back</button>
-                  <button onClick={() => setStep(3)} disabled={!selectedButtonId} className="rounded-md border border-black bg-black px-12 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase hover:bg-transparent hover:text-black transition disabled:opacity-50 disabled:cursor-not-allowed">Next Step</button>
+                <div className="flex gap-4 mt-12">
+                  <button onClick={() => setStep(1)} className="border-2 border-black px-10 py-5 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition">Back</button>
+                  <button onClick={() => setStep(3)} className="bg-black text-white flex-1 py-5 text-[10px] font-black uppercase tracking-widest transition hover:invert">Next: Module Artwork</button>
                 </div>
               </div>
             )}
 
-            {/* STEP 3: SHELL */}
+            {/* PASUL 3: MODULES (Rămâne la fel, dar curățat) */}
             {step === 3 && (
-              <div className="space-y-6 animate-in fade-in duration-500">
-                <h2 className="text-xl font-light tracking-tight text-black">3. Outer Shell Geometry</h2>
-                <div className="grid gap-6 md:grid-cols-2">
-                  {shellModules.map(shell => (
-                    <div 
-                      key={shell.id} 
-                      onClick={() => setSelectedShellId(shell.id)}
-                      className={`cursor-pointer rounded-md border p-8 transition-all duration-200 ${selectedShellId === shell.id ? 'border-2 border-black bg-gray-50/50 shadow-sm' : 'border-gray-200 bg-white hover:border-black'}`}
-                    >
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-2xl font-light">{shell.name}</h3>
-                        <span className="text-xs font-bold tracking-widest uppercase text-gray-400">Included</span>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-6">{shell.description}</p>
-                      <ul className="flex flex-wrap gap-2">
-                        {shell.specs.map(spec => (
-                          <li key={spec} className="rounded-sm bg-gray-100 px-2 py-1 text-[10px] uppercase tracking-widest text-gray-600">{spec}</li>
-                        ))}
-                      </ul>
+              <div className="animate-in fade-in duration-500 space-y-12">
+                <h2 className="text-2xl font-light uppercase tracking-tighter">Magnetic Module Finish</h2>
+                {['left', 'right', 'back'].map(pos => (
+                  <div key={pos} className="space-y-4">
+                    <p className="text-[10px] font-black uppercase text-gray-400 tracking-[0.2em]">{pos} Panel</p>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                      {ARTWORK_OPTIONS.map(art => (
+                        <button 
+                          key={art.id}
+                          onClick={() => setModuleArtwork({...moduleArtwork, [pos]: art.id})}
+                          className={`p-4 border-2 text-[10px] font-black uppercase tracking-tighter transition-all ${moduleArtwork[pos as keyof typeof moduleArtwork] === art.id ? 'bg-black text-white border-black' : 'border-gray-100 hover:border-black'}`}
+                        >
+                          {art.name}
+                        </button>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <div className="mt-8 flex justify-between">
-                  <button onClick={() => setStep(2)} className="rounded-md border border-gray-300 px-8 py-4 text-xs font-bold tracking-[0.2em] text-black uppercase hover:border-black transition">Back</button>
-                  <button onClick={() => setStep(4)} disabled={!selectedShellId} className="rounded-md border border-black bg-black px-12 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase hover:bg-transparent hover:text-black transition disabled:opacity-50 disabled:cursor-not-allowed">Next Step</button>
-                </div>
-              </div>
-            )}
-
-            {/* STEP 4: EXTRAS */}
-            {step === 4 && (
-              <div className="space-y-6 animate-in fade-in duration-500">
-                <h2 className="text-xl font-light tracking-tight text-black">4. Eco-System & Extra Modules</h2>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-                  {extraModules.map(extra => {
-                    const isSelected = selectedExtraIds.includes(extra.id);
-                    return (
-                      <div 
-                        key={extra.id} 
-                        className={`rounded-md border p-6 transition-all duration-200 flex flex-col justify-between ${isSelected ? 'border-2 border-black bg-gray-50/50 shadow-sm' : 'border-gray-200 bg-white'}`}
-                      >
-                        <div>
-                          <p className="text-[10px] tracking-[0.2em] font-bold uppercase text-gray-400 mb-2">{extra.category}</p>
-                          <h3 className="text-lg font-light mb-3 text-black">{extra.name}</h3>
-                          <p className="text-xs text-gray-600 mb-6 leading-relaxed">{extra.description}</p>
-                        </div>
-                        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-                          <span className="text-sm font-medium text-black">${extra.price}</span>
-                          <button onClick={() => toggleExtra(extra.id)} className={`rounded-sm border px-4 py-2 text-[10px] uppercase tracking-widest font-bold transition ${isSelected ? 'border-black bg-black text-white hover:bg-transparent hover:text-black' : 'border-gray-300 bg-transparent text-black hover:border-black'}`}>
-                            {isSelected ? 'Remove' : 'Add'}
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="mt-12 flex justify-between border-t border-gray-200 pt-8">
-                  <button onClick={() => setStep(3)} className="rounded-md border border-gray-300 px-8 py-4 text-xs font-bold tracking-[0.2em] text-black uppercase hover:border-black transition">Back</button>
-                </div>
+                  </div>
+                ))}
+                <button onClick={() => setStep(2)} className="border-2 border-black px-10 py-5 text-[10px] font-black uppercase tracking-widest">Back</button>
               </div>
             )}
           </div>
         </div>
 
-        {/* CART SUMMARY STICKY */}
-        <aside className="h-fit rounded-md border border-black bg-white p-8 shadow-sm lg:sticky lg:top-32" aria-label="Cart summary">
-          <p className="text-[10px] tracking-[0.3em] font-bold text-black uppercase">Live Configuration</p>
-          
-          <div className="mt-8 space-y-5 text-sm">
-            <div className="flex justify-between items-start pb-4 border-b border-gray-100">
-              <div>
-                <p className="font-bold text-black">{selectedKit.name}</p>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Base Kit</p>
-              </div>
-              <span className="font-medium text-black">${selectedKit.price}</span>
+        {/* SUMMARY SIDEBAR */}
+        <aside className="h-fit border-2 border-black p-10 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] lg:sticky lg:top-32 bg-white">
+          <p className="text-[10px] font-black tracking-[0.4em] text-black uppercase border-b border-black pb-4 mb-10">Live Configuration</p>
+          <div className="space-y-8">
+           <div>
+  <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Foundation</p>
+  <div className="flex items-center gap-3 mt-3">
+    <div 
+      className="w-5 h-5 rounded-full border-2 border-black" 
+      style={{ 
+        backgroundColor: customColor,
+        filter: "drop-shadow(3px 3px 0px #000000)" // Aceasta este umbra care lipsea
+      }} 
+    />
+    <p className="text-sm font-black uppercase tracking-tighter">{colorDisplayName}</p>
+  </div>
+</div> 
+            <div>
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Switches</p>
+              <p className="mt-2 text-sm font-black uppercase italic">{activeButton.name}</p>
             </div>
-
-            <div className={`flex justify-between items-start pb-4 border-b border-gray-100 transition-opacity ${!selectedButton ? 'opacity-30' : ''}`}>
-              <div>
-                <p className="font-bold text-black">{selectedButton?.name || 'Select Switches'}</p>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Actions</p>
-              </div>
-              <span className="text-xs font-bold tracking-widest uppercase text-gray-400">{selectedButton ? 'Included' : '--'}</span>
-            </div>
-
-            <div className={`flex justify-between items-start pb-4 border-b border-gray-100 transition-opacity ${!selectedShell ? 'opacity-30' : ''}`}>
-              <div>
-                <p className="font-bold text-black">{selectedShell?.name || 'Select Shell'}</p>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Body</p>
-              </div>
-              <span className="text-xs font-bold tracking-widest uppercase text-gray-400">{selectedShell ? 'Included' : '--'}</span>
-            </div>
-
-            {selectedExtrasList.length > 0 && (
-              <div className="pt-2 space-y-3">
-                <p className="text-[10px] tracking-[0.3em] font-bold text-gray-400 uppercase mb-4">Extra Modules</p>
-                {selectedExtrasList.map(item => (
-                  <div key={item.id} className="flex justify-between items-center text-gray-600 text-xs">
-                    <span>{item.name}</span>
-                    <span className="text-black font-medium">${item.price}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="mt-8 border-t border-black pt-6">
-            <div className="flex items-center justify-between text-2xl font-light tracking-tighter text-black">
-              <span>Total</span>
-              <span>${totalPrice}</span>
+            <div className="space-y-4">
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Artwork Profile</p>
+              {Object.entries(moduleArtwork).map(([pos, val]) => (
+                <div key={pos} className="flex justify-between text-[11px] font-black border-b border-gray-100 pb-2">
+                  <span className="text-gray-400 uppercase">{pos}</span>
+                  <span className="uppercase">{val}</span>
+                </div>
+              ))}
             </div>
           </div>
-
+          <div className="mt-16 pt-8 border-t-2 border-black">
+             <div className="flex justify-between text-4xl font-black italic tracking-tighter">
+                <span>TOTAL</span>
+                <span>$129</span>
+             </div>
+          </div>
           <button
-            type="button"
-            disabled={!selectedShell || !selectedButton || step < 4}
-            className="mt-8 w-full rounded-md border border-black bg-black px-4 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase transition hover:bg-transparent hover:text-black disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-black disabled:hover:text-white"
-          >
-            Checkout Loadout
-          </button>
-          
-          {(!selectedShell || !selectedButton || step < 4) && (
-            <p className="text-[10px] text-center text-gray-400 mt-4 uppercase tracking-widest transition-opacity">
-              Complete setup to checkout
-            </p>
-          )}
+  disabled={step < 3 || isSaving}
+  onClick={handleOrder} // Am adăugat funcția de click aici
+  className="mt-10 w-full bg-black text-white py-6 text-xs font-black tracking-[0.3em] uppercase border-2 border-black transition hover:invert disabled:opacity-20"
+>
+  {isSaving ? "SYNCING..." : "ORDER KINETIC BUILD"}
+</button>
         </aside>
       </div>
     </section>
@@ -294,7 +296,7 @@ function MarketplaceContent() {
 
 export function MarketplacePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-white text-black p-8">Loading configurator...</div>}>
+    <Suspense fallback={<div className="p-20 font-black uppercase tracking-[0.5em]">Syncing Kinetic...</div>}>
       <MarketplaceContent />
     </Suspense>
   );
