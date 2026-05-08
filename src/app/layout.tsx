@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { CookieConsentBanner } from "@/components/common/CookieConsentBanner";
+import { CartProvider } from "@/context/CartContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -51,8 +52,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="font-body min-h-full bg-background text-on-surface selection:bg-primary-container selection:text-on-primary">
-        {children}
-        <CookieConsentBanner />
+        <CartProvider>
+          {children}
+          <CookieConsentBanner />
+        </CartProvider>
       </body>
     </html>
   );
