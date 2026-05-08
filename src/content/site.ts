@@ -18,6 +18,8 @@ export type StoreModule = {
   price: number;
   description: string;
   category: "Sensor" | "Switch" | "Shell";
+  collection: "Klassic" | "Kommunity";
+  image?: string;
   specs: string[];
 };
 
@@ -55,7 +57,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
     brandName: "KOVA",
     nav: [
       { label: "Store", href: "/store" },
-      { label: "Modules", href: "/modules" },
+      { label: "Accessories", href: "/accessories" },
       { label: "KOVA Hub", href: "/hub" },
       { label: "Mouse Web", href: "/mouse-web" },
     ],
@@ -76,7 +78,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
     brandName: "KOVA",
     nav: [
       { label: "Store", href: "/store" },
-      { label: "Module", href: "/modules" },
+      { label: "Accessories", href: "/accessories" },
       { label: "KOVA Hub", href: "/hub" },
       { label: "Mouse Web", href: "/mouse-web" },
     ],
@@ -146,6 +148,8 @@ export const buttonModules: StoreModule[] = [
     price: 15,
     description: "Zero double-click guarantee with light actuation.",
     category: "Switch",
+    collection: "Klassic",
+    image: "/accessories/omron.png",
     specs: ["Optical actuation", "Light force"],
   },
   {
@@ -154,6 +158,8 @@ export const buttonModules: StoreModule[] = [
     price: 18,
     description: "Crisp and tactile feedback for precise tapping.",
     category: "Switch",
+    collection: "Klassic",
+    image: "/accessories/huano.png",
     specs: ["Mechanical", "Heavy tactile force"],
   }
 ];
@@ -165,6 +171,8 @@ export const shellModules: StoreModule[] = [
     price: 20,
     description: "Classic smooth texture with maximum grip coverage.",
     category: "Shell",
+    collection: "Klassic",
+    image: "/accessories/shell_matte.png",
     specs: ["Solid ABS", "Matte coating"],
   },
   {
@@ -173,6 +181,8 @@ export const shellModules: StoreModule[] = [
     price: 30,
     description: "Ultra-lightweight community design.",
     category: "Shell",
+    collection: "Kommunity",
+    image: "/accessories/honeycomb.png",
     specs: ["SLA print", "Breathable grip"],
   }
 ];
@@ -184,6 +194,8 @@ export const extraModules: StoreModule[] = [
     price: 22,
     description: "Machined from solid titanium for infinite scrolling momentum.",
     category: "Switch",
+    collection: "Klassic",
+    image: "/accessories/wheel.png",
     specs: ["Titanium alloy", "Ceramic bearing"],
   },
   {
@@ -192,6 +204,8 @@ export const extraModules: StoreModule[] = [
     price: 15,
     description: "Double the battery life span for multi-day tournaments.",
     category: "Switch",
+    collection: "Klassic",
+    image: "/accessories/battery.png",
     specs: ["800mAh", "Fast charge"],
   }
 ];
@@ -246,4 +260,9 @@ export const hubSetups: HubSetup[] = [
 
 export function getSiteCopy(locale: Locale = "en") {
   return copyByLocale[locale];
+}
+
+export function getModuleById(id: string) {
+  const allModules = [...buttonModules, ...shellModules, ...extraModules];
+  return allModules.find(m => m.id === id);
 }

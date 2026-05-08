@@ -6,12 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getSiteCopy } from "@/content/site";
 import { trackEvent } from "@/lib/analytics";
+import { useCart } from "@/context/CartContext";
 
 const siteCopy = getSiteCopy("en");
 
 export function TopNavBar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { totalItems, setIsCartOpen } = useCart();
 
   function closeMobileMenu() {
     setIsMobileMenuOpen(false);
@@ -63,6 +65,20 @@ export function TopNavBar() {
           >
             Join Waitlist
           </Link>
+
+          <button
+            type="button"
+            onClick={() => setIsCartOpen(true)}
+            className="relative flex h-10 w-10 items-center justify-center border border-black rounded-md hover:bg-black hover:text-white transition group"
+            aria-label="Open cart"
+          >
+            <span className="text-lg">🛒</span>
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white group-hover:bg-white group-hover:text-black border border-black transition-colors">
+                {totalItems}
+              </span>
+            )}
+          </button>
 
           <button
             type="button"
